@@ -2,74 +2,78 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>CostaMS - Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" href="../Index.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>CostaMS - Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="../Index.css">
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <img class="navbar-brand" src="../Imagenes/LogoCostaMS.png" alt="Logo"></img>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="../Index.html">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Hoteles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Mi Perfil</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary" href="#">Log in</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-primary" href="#">Registrarse</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-
-
-    <!--Formulario-->
-    <div class="login-form">
-        <form action="/examples/actions/confirmation.php" method="post">
-            <h2 class="text-center">Log in</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Usuario" required="required">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Contraseña" required="required">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Log in</button>
-            </div>
-            <div class="clearfix">
-                <label class="float-left form-check-label"><input type="checkbox"> Recuerdame</label>
-                <a href="#" class="float-right">¿Has olvidado la contraseña?</a>
-            </div>
-        </form>
-        <p class="text-center"><a href="../registrar/registrar.html">Crea una cuenta</a></p>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img class="navbar-brand" src="../Imagenes/LogoCostaMS.png" alt="Logo"></img>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="../Index.html">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Hoteles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contacto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Mi Perfil</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-primary" href="#">Log in</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-primary" href="#">Registrarse</a>
+        </li>
+      </ul>
     </div>
+  </nav>
 
+
+
+  <!--Formulario-->
+  <div class="login-form">
+    <form action="login.php" method="post" class="form-lg">
+      <h2 class="text-center">Log in</h2>
+      <div class="form-group">
+        <input type="text" class="form-control" name="usuario" placeholder="Usuario" required="required"
+          style="font-size: 20px;">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="Contraseña" required="required"
+          style="font-size: 20px;">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" style="font-size: 20px;">Log in</button>
+      </div>
+      <div class="clearfix">
+        <label class="float-left form-check-label"><input type="checkbox"> Recuerdame</label>
+        <a href="#" class="float-right">¿Has olvidado la contraseña?</a>
+      </div>
+    </form>
+    <p class="text-center"><a href="../registrar/registrar.html">Crea una cuenta</a></p>
+  </div>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   <!-- Footer -->
   <footer class="bg-dark text-white py-4">
     <div class="container">
