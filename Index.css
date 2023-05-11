@@ -72,35 +72,7 @@
         transform: scale(1.1);
       }
       
-      
-      .formulario-registro form .form-group label {
-        color: #2d2d2d;
-        font-size: 1.1rem;
-      }
-      
-      .formulario-registro form .form-group input[type="text"],
-      .formulario-registro form .form-group input[type="email"],
-      .formulario-registro form .form-group input[type="password"] {
-        background-color: #f2f2f2;
-        border: none;
-        border-bottom: 1px solid #ccc;
-        border-radius: 0;
-        padding: 10px;
-      }
-      
-      .formulario-registro form button[type="submit"] {
-        background-color: #007bff;
-        border: none;
-        border-radius: 0;
-        padding: 10px;
-        color: #fff;
-        font-size: 1.2rem;
-        margin-top: 10px;
-      }
-      
-      .formulario-registro form button[type="submit"]:hover {
-        background-color: #0069d9;
-      }
+  
     /* Estilos para pantallas pequeñas */
     @media (max-width: 576px) {
     .navbar-brand {
