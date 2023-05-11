@@ -1,0 +1,114 @@
+/* Estilos personalizados */
+    .jumbotron {
+        background-color: #f8f9fa;
+        padding: 3rem;
+        margin-bottom: 0;
+    }
+    
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+    }
+    
+    .btn-secondary {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+    
+    .btn-secondary:hover {
+        color: #fff;
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+    
+    .col-md-4 {
+        margin-bottom: 2rem;
+    }
+    
+    h2 {
+        margin-bottom: 1rem;
+    }
+    
+    p {
+        margin-bottom: 1rem;
+    }
+    
+    .navbar {
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .navbar-brand {
+        width: 250px;
+        height: auto;
+        font-size: 2rem;
+    }
+    
+    .nav-link {
+        font-size: 1.2rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .hotel-img {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid #ccc;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+      
+      .hotel-img img {
+        transition: transform 0.5s ease;
+      }
+      
+      .hotel-img img:hover {
+        transform: scale(1.1);
+      }
+      
+      
+      .formulario-registro form .form-group label {
+        color: #2d2d2d;
+        font-size: 1.1rem;
+      }
+      
+      .formulario-registro form .form-group input[type="text"],
+      .formulario-registro form .form-group input[type="email"],
+      .formulario-registro form .form-group input[type="password"] {
+        background-color: #f2f2f2;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        padding: 10px;
+      }
+      
+      .formulario-registro form button[type="submit"] {
+        background-color: #007bff;
+        border: none;
+        border-radius: 0;
+        padding: 10px;
+        color: #fff;
+        font-size: 1.2rem;
+        margin-top: 10px;
+      }
+      
+      .formulario-registro form button[type="submit"]:hover {
+        background-color: #0069d9;
+      }
+    /* Estilos para pantallas pequeñas */
+    @media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+    .nav-link {
+        font-size: 1rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        }
+    }
