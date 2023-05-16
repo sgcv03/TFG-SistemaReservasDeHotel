@@ -1,33 +1,38 @@
+
 <?php
+session_start(); // Iniciar sesión
+
 $link = mysqli_connect("localhost", "root", "root", "tfg_hoteles");
 
-// comprobar conexion
+// Comprobar conexión
 if($link === false){
-    die("ERROR:  " . mysqli_connect_error());
+    die("ERROR: " . mysqli_connect_error());
 }
-$usuario_inscrito=false;
 
-$usuario=$_POST['usuario'];
-$password=$_POST['password'];
-// Hacemos una consulta donde comprueba el dni y el pin si coinciden
-    $sql="select *
-        from clientes
-		where usuario='$usuario' and contraseña='$password'";
+// Obtener datos del formulario de inicio de sesión
+$usuarioExiste = false;
+$usuario = $_POST['usuario'];
+$password = $_POST['password'];
 
-$res=mysqli_query($link , $sql);
-$numerofilas=mysqli_num_rows($res);
-// La búsqueda no arrojó usuarios con ese nombre ni contraseña, por lo tanto el usuario no existe
-    if($numerofilas>0){
-        $usuario_inscrito=true;
-    }
-// Usuario inscrito en el banco y en la base de datos 
-    else if ($numerofilas==0) {
-        $usuario_inscrito=false;
-    }
-    if($usuario_inscrito==true){
-    echo "Inicio Sesion correcto";
-    }
-    if($usuario_inscrito==false)
-    echo "Inicio Sesion incorrecto";
+// Consulta SQL para buscar al usuario en la base de datos
+$sql = "SELECT * FROM clientes WHERE usuario = '$usuario' and contraseña = '$password'";
+
+$resultado = mysqli_query($link, $sql);
+
+if(mysqli_num_rows($resultado) == 1){
+    $fila = mysqli_fetch_array($resultado);
+    $usuarioExiste = true;
+    // Contraseña correcta, se inicializan las variables de sesión
+    $_SESSION['loggedin'] = true;
+    $_SESSION['dni_cliente'] = $fila['dni_cliente'];
+    $_SESSION['nombre'] = $fila['nombre'];
+    $_SESSION['apellidos'] = $fila['apellidos'];
+    $_SESSION['usuario'] = $fila['usuario'];
+    header("Location: ../Index.php");
+    
+} else{
+    // Usuario no encontrado en la base de datos
+    echo "El usuario no existe";
+}
 
 ?>

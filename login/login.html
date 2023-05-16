@@ -9,6 +9,8 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  
   <link rel="stylesheet" href="login.css">
   <link rel="icon" type="image/x-icon" href="../Imagenes/LogoHotel.png">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 
 <style>
@@ -20,31 +22,17 @@
     <img class="navbar-brand" src="../Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
+       <span class="navbar-toggler-icon"></span>
+     <ul class="navbar-nav ml-auto">
+        <span class="navbar-text">
+          <img src="../Imagenes/banderaSpain.png" alt="Bandera España" width="30" height="30" class="rounded-circle">
+        </span>
         <li class="nav-item">
-          <a class="nav-link" href="../Index.html">Inicio</a>
+          <a class="nav-link" href="../Index.php">Inicio</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Hoteles</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contacto</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Mi Perfil</a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
-          <a class="nav-link btn btn-outline-primary" href="#">Log in</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-primary" href="../registrar/registrar.html">Registrarse</a>
-        </li>
-      </ul>
+        
     </div>
   </nav>
 
@@ -62,7 +50,7 @@
           <input type="password" class="form-control" name="password" placeholder="Contraseña" required="required">
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">Log in</button>
+          <button type="submit" class="btn btn-primary btn-block" onclick="">Log in</button>
         </div>
         <div class="clearfix">
           <label class="float-left form-check-label"><input type="checkbox"> Recuerdame</label>

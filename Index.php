@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,52 +25,70 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
+        <span class="navbar-text">
+          <img src="Imagenes/banderaSpain.png" alt="Español" width="30" height="30" class="rounded-circle">
+        </span>
         <li class="nav-item">
-          <a class="nav-link" href="Index.html">Inicio</a>
+          <a class="nav-link" href="Index.php">Inicio</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Hoteles</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contacto</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Mi Perfil</a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
-          <a class="nav-link btn btn-outline-primary" href="login/login.html">Log in</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-primary" href="registrar/registrar.html">Registrarse</a>
-        </li>
+        <?php
+          session_start(); // Iniciamos la sesión
+
+          if(isset($_SESSION["loggedin"]) == true){ // Si el usuario ha iniciado sesión, ocultar los botones de inicio de sesión y registro
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="#">Mi Perfil (' . $_SESSION["usuario"] . ')</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="CerrarSesion.php">Cerrar sesión</a>
+                  </li>';
+          } else{ // Si el usuario no ha iniciado sesión, mostrar los botones de inicio de sesión y registro
+            echo '<li class="nav-item navbar-expand">
+                    <a class="nav-link btn btn-outline-primary" href="login/login.html">Iniciar sesión</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link btn btn-primary" href="registrar/registrar.html">Hazte una cuenta</a>
+                  </li>';
+          }
+        ?>
       </ul>
     </div>
   </nav>
 
-  <!-- Jumbotron -->
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-4">CostaMS</h1>
-      <p class="lead">
-        Bienvenidos a nuestro sitio web. Aquí podrás encontrar la información necesaria para reservar habitación en
-        cualquiera de nuestros hoteles.
-      </p>
-      <hr class="my-4">
-      <p>
-        Encontrarás información detallada sobre nuestras instalaciones, nuestras habitaciones y tarifas, y todo lo
-        necesario para que tu estancia sea inolvidable. Si no estás registrado, pulsa el siguiente botón o inicia sesión
-        para poder visualizar nuestros hoteles y gestionar tus reservas en tu hotel favorito.
-      </p>
-      <p class="lead">
-        <a href="registrar/registrar.html" class= "btn btn-primary btn-lg" >¡Registrate!</button></a>
-      </p>
-    </div>
-  </div>
 
-<br>
-<br><br><br><br><br>
+  <!-- Jumbotron -->
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-4">CostaMS</h1>
+    <p class="lead">
+      Bienvenidos a nuestro sitio web. Aquí podrás encontrar la información necesaria para reservar habitación en tu hotel deseado.
+    </p>
+    <hr class="my-4">
+    <p>
+      Introduce los siguientes criterios de búsqueda para encontrar tu hotel ideal.
+    </p>
+
+    <!-- Agregar formulario para búsqueda de hoteles -->
+    <form method="post" action="buscar-hoteles.php">
+      <div class="form-group">
+        <label for="nombre-hotel">Nombre del hotel:</label>
+        <input type="text" class="form-control" id="nombre-hotel" name="nombre-hotel">
+      </div>
+      <div class="form-group">
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" class="form-control" id="ciudad" name="ciudad">
+      </div>
+      <div class="form-group">
+        <label for="estrellas">Estrellas:</label>
+        <input type="number" class="form-control" id="estrellas" name="estrellas" min="1" max="5">
+      </div>
+      <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+  </div>
+</div>
+
+
+<br><br><br><br><br><br><br><br><br> 
 
   <!-- Footer -->
   <footer class="bg-dark text-white py-4">

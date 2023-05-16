@@ -23,9 +23,9 @@ $sql = "INSERT INTO clientes (dni_cliente, nombre, apellidos, usuario, contrase�
 ('$dni', '$nombre', '$apellidos','$usuario','$password','$email', '$telefono' , '$direccion')";
 
 if(mysqli_query($link, $sql)){
-    echo "Te has registrado correctamente";
+    header('Location: ../Index.php');
 } else{
-    echo "ERROR:  $sql. " . mysqli_error($link);
+    echo "<p style='color:red;'>ERROR: No se ha podido registrar el usuario. Por favor, inténtelo de nuevo más tarde.</p>";
 }
  
 // Close connection
