@@ -6,19 +6,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Página Principal | CostaMS</title>
+  <title>Mi Perfil | CostaMS</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
   </script>
-  <link rel="stylesheet" href="Index.css">
-  <link rel="icon" type="image/x-icon" href="Imagenes/LogoHotel.png">
+  <link rel="stylesheet" href="../Index.css">
+  <link rel="icon" type="image/x-icon" href="../Imagenes/LogoHotel.png">
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img class="navbar-brand" src="Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
+    <img class="navbar-brand" src="../Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,65 +26,75 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <span class="navbar-text">
-          <img src="Imagenes/banderaSpain.png" alt="Español" width="30" height="30" class="rounded-circle">
+          <img src="../Imagenes/banderaSpain.png" alt="Español" width="30" height="30" class="rounded-circle">
         </span>
         <li class="nav-item">
-          <a class="nav-link" href="Index.php">Inicio</a>
+          <a class="nav-link" href="../Index.php">Inicio</a>
         </li>
         <?php
           session_start(); // Iniciamos la sesión
 
-          if(isset($_SESSION["loggedin"]) == true){ // Si el usuario ha iniciado sesión, ocultar los botones de inicio de sesión y registro
+          if(isset($_SESSION["loggedin"]) == true){ 
             echo '<li class="nav-item">
-                    <a class="nav-link" href="perfil-usuario/perfil-usuario.php">Mi Perfil (' . $_SESSION["usuario"] . ')</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="perfil-usuario/perfil-usuario.php">Mis Reservas</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="CerrarSesion.php">Cerrar sesión</a>
+            <a class="nav-link" href="#">Mis Reservas</a>
+          </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="../CerrarSesion.php">Cerrar sesión</a>
                   </li>';
-          } else{ // Si el usuario no ha iniciado sesión, mostrar los botones de inicio de sesión y registro
-            echo '<li class="nav-item navbar-expand">
-                    <a class="nav-link btn btn-outline-primary" href="login/login.php">Iniciar sesión</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link btn btn-primary" href="registrar/registrar.php">Hazte una cuenta</a>
-                  </li>';
-          }
+          } 
         ?>
       </ul>
     </div>
   </nav>
 
 
-  <!-- Jumbotron -->
-<div class="jumbotron">
   <div class="container">
-    <h1 class="display-4">CostaMS</h1>
-    <p class="lead">
-      Bienvenidos a nuestro sitio web. Aquí podrás encontrar la información necesaria para reservar habitación en tu hotel deseado.
-    </p>
-    <hr class="my-4">
-    <p>
-      Introduce los siguientes criterios de búsqueda para encontrar tu hotel ideal.
-    </p>
+    <h1>Mis datos</h1>
+    <form method="post" action="">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $_SESSION["nombre"] ?>" required>
+        </div>
 
-    <!-- Agregar formulario para búsqueda de hoteles -->
-    <form method="post" action="buscar-hoteles.php">
-      <div class="form-group">
-        <label for="ciudad">Destino:</label>
-        <input type="text" class="form-control" id="ciudad" name="ciudad">
-      </div>
-      <div class="form-group">
-        <label for="estrellas">Estrellas:</label>
-        <input type="number" class="form-control" id="estrellas" name="estrellas" min="1" max="5">
-      </div>
-      <button type="submit" class="btn btn-primary">Buscar</button>
+        <div class="form-group">
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" class="form-control" id="apellidos" name="apellidos" value="<?php echo $_SESSION["apellidos"] ?>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="usuario">Usuario:</label>
+            <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $_SESSION['usuario'] ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="dni_cliente">DNI:</label>
+            <input type="text" class="form-control" id="dni_cliente" name="dni_cliente" value="<?php echo $_SESSION['dni_cliente'] ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="contraseña">Contraseña Actual:</label>
+            <input type="password" class="form-control" id="contraseña" name="contraseña" value="<?php echo $_SESSION['contraseña'] ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo $_SESSION['email'] ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="telefono" class="form-control" id="telefono" name="telefono" value="<?php echo $_SESSION['telefono'] ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input type="direccion" class="form-control" id="direccion" name="direccion" value="<?php echo $_SESSION['direccion'] ?>">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
-
-  </div>
 </div>
+
 
 
 <br><br><br><br><br><br><br><br><br> 

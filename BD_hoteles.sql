@@ -67,4 +67,12 @@ CREATE TABLE reservas (
 );
 
 select * from clientes;
+SELECT id_hotel, nombre, direccion, ciudad, pais, categoria, numHabitaciones, IF(imagen IS NOT NULL, 'Imagen insertada', 'Imagen no insertada') AS estado_imagen
+FROM hoteles;
+
+-- Inserciones de los hoteles
+INSERT INTO hoteles (nombre, direccion, ciudad, pais, categoria, numHabitaciones, imagen) VALUES
+('Hotel A', 'Calle Principal 123', 'Ciudad A', 'España', 4, 100, LOAD_FILE('\Imagenes\hotelValencia.jpg')),
+('Hotel B', 'Avenida Central 456', 'Ciudad B', 'España', 3, 80, LOAD_FILE('C:\xampp\htdocs\TFG-SistemaReservasDeHotel\Imagenes\HotelCantabrico.jpg')),
+('Hotel C', 'Paseo del Mar 789', 'Ciudad C', 'España', 5, 150, LOAD_FILE('C:\xampp\htdocs\TFG-SistemaReservasDeHotel\Imagenes\HotelMediterraneo.jpg'));
 

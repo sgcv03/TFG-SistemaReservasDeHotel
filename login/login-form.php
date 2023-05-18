@@ -10,7 +10,6 @@ if($link === false){
 }
 
 // Obtener datos del formulario de inicio de sesión
-$usuarioExiste = false;
 $usuario = $_POST['usuario'];
 $password = $_POST['password'];
 
@@ -21,13 +20,16 @@ $resultado = mysqli_query($link, $sql);
 
 if(mysqli_num_rows($resultado) == 1){
     $fila = mysqli_fetch_array($resultado);
-    $usuarioExiste = true;
     // Contraseña correcta, se inicializan las variables de sesión
     $_SESSION['loggedin'] = true;
-    $_SESSION['dni_cliente'] = $fila['dni_cliente'];
+    $_SESSION['dni_cliente'] = $fila['DNI_cliente'];
     $_SESSION['nombre'] = $fila['nombre'];
     $_SESSION['apellidos'] = $fila['apellidos'];
     $_SESSION['usuario'] = $fila['usuario'];
+    $_SESSION['contraseña'] = $fila['contraseña'];
+    $_SESSION['email'] = $fila['email'];
+    $_SESSION['telefono'] = $fila['telefono'];
+    $_SESSION['direccion'] = $fila['direccion'];
     header("Location: ../Index.php");
     
 } else{

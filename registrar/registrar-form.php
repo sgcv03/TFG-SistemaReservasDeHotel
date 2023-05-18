@@ -73,7 +73,6 @@ $sql = "INSERT INTO clientes (dni_cliente, nombre, apellidos, usuario, contrase√
 
 if(mysqli_query($link, $sql)){
     header('Location: ../Index.php');
-
   }else{
     $_SESSION['error'] = "El usuario no est√° registrado en nuestro sistema. Introduzca de nuevo las credenciales.";
     header('Location: registrar.php');
