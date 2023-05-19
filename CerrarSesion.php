@@ -1,6 +1,6 @@
 <?php
 session_start(); // Iniciamos la sesión
-$link = mysqli_connect("localhost", "root", "root", "tfg_hoteles");
+$link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
 
 // Comprobar conexión
 if($link === false){
@@ -12,6 +12,6 @@ $_SESSION = array();
 session_destroy();
 
 // Redirigir al usuario a la página de inicio
-header("location: Index.php");
+header("location: index.php");
 exit;
 ?>

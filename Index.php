@@ -1,3 +1,6 @@
+<?php 
+   session_start(); // Iniciamos la sesión
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +15,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
   </script>
-  <link rel="stylesheet" href="Index.css">
+  <link rel="stylesheet" href="index.css">
   <link rel="icon" type="image/x-icon" href="Imagenes/LogoHotel.png">
 </head>
 
@@ -29,11 +32,9 @@
           <img src="Imagenes/banderaSpain.png" alt="Español" width="30" height="30" class="rounded-circle">
         </span>
         <li class="nav-item">
-          <a class="nav-link" href="Index.php">Inicio</a>
+          <a class="nav-link" href="index.php">Inicio</a>
         </li>
         <?php
-          session_start(); // Iniciamos la sesión
-
           if(isset($_SESSION["loggedin"]) == true){ // Si el usuario ha iniciado sesión, ocultar los botones de inicio de sesión y registro
             echo '<li class="nav-item">
                     <a class="nav-link" href="perfil-usuario/perfil-usuario.php">Mi Perfil (' . $_SESSION["usuario"] . ')</a>
@@ -87,7 +88,7 @@
 </div>
 
 
-<br><br><br><br><br><br><br><br><br> 
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 
   <!-- Footer -->
   <footer class="bg-dark text-white py-4">

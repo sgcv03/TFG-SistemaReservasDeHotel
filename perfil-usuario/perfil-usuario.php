@@ -1,4 +1,6 @@
-
+<?php 
+ session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,9 +14,48 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
   </script>
-  <link rel="stylesheet" href="../Index.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="../index.css">
   <link rel="icon" type="image/x-icon" href="../Imagenes/LogoHotel.png">
 </head>
+
+<script>
+  function confirmacionModificacion(event) {
+        event.preventDefault(); // Detiene el envío del formulario
+        
+        Swal.fire({
+            title: 'Modificar datos',
+            text: '¿Estás seguro de que deseas modificar los datos?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Guardar cambios',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si se confirma la baja, se envía el formulario
+                event.target.closest('form').submit();
+            }
+        });
+    }
+
+  function confirmacionBaja(event) {
+        event.preventDefault(); // Detiene el envío del formulario
+        
+        Swal.fire({
+            title: 'Confirmación',
+            text: '¿Estás seguro de que deseas darte de baja? Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Darse de baja',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si se confirma la baja, se envía el formulario
+                event.target.closest('form').submit();
+            }
+        });
+    }
+</script>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -32,8 +73,6 @@
           <a class="nav-link" href="../Index.php">Inicio</a>
         </li>
         <?php
-          session_start(); // Iniciamos la sesión
-
           if(isset($_SESSION["loggedin"]) == true){ 
             echo '<li class="nav-item">
             <a class="nav-link" href="#">Mis Reservas</a>
@@ -50,51 +89,86 @@
 
   <div class="container">
     <h1>Mis datos</h1>
-    <form method="post" action="">
+    <?php
+    if (isset($_SESSION['error'])) {
+      echo "<p style='color:red;'>" . $_SESSION['error'] . "</p>";
+      unset($_SESSION['error']);
+    }
+    if (isset($_SESSION['exito'])) {
+      echo "<p style='color:green;'>" . $_SESSION['exito'] . "</p>";
+      unset($_SESSION['exito']);
+    }
+
+    ?>
+    <form method="post" action="modificar-usuario.php">
         <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $_SESSION["nombre"] ?>" required>
+            <label for="nombre">Nombre actual:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $_SESSION["nombre"] ?>" readonly>
+            <br>
+            <input type="text" class="form-control" id="nuevoNombre" name="nuevoNombre" placeholder="Nuevo nombre">
+        </div>
+        <div class="form-group">
+            <label for="apellidos">Apellidos actual:</label>
+            <input type="text" class="form-control" id="apellidos" name="apellidos" value="<?php echo $_SESSION["apellidos"] ?>" readonly>
+            <br>
+            <input type="text" class="form-control" id="apellidos-value" name="nuevoApellidos" placeholder="Nuevos apellidos" >
         </div>
 
         <div class="form-group">
-            <label for="apellidos">Apellidos:</label>
-            <input type="text" class="form-control" id="apellidos" name="apellidos" value="<?php echo $_SESSION["apellidos"] ?>" required>
+            <label for="usuario">Usuario actual:</label>
+            <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $_SESSION["usuario"] ?>" readonly>
+            <br>
+            <input type="text" class="form-control" id="usuario-value" name="nuevoUsuario" placeholder="Nuevo usuario">
         </div>
 
         <div class="form-group">
-            <label for="usuario">Usuario:</label>
-            <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $_SESSION['usuario'] ?>">
+            <label for="dni_cliente">DNI actual:</label>
+            <input type="text" class="form-control" id="dni_cliente" name="dni" value="<?php echo $_SESSION["dni_cliente"] ?>"  readonly>
+            <br>
+            <input type="text" class="form-control" id="dni_cliente-value" name="nuevoDni" placeholder="Nuevo DNI">
         </div>
 
         <div class="form-group">
-            <label for="dni_cliente">DNI:</label>
-            <input type="text" class="form-control" id="dni_cliente" name="dni_cliente" value="<?php echo $_SESSION['dni_cliente'] ?>">
+            <label for="contraseña">Contraseña actual:</label>
+            <input type="password" class="form-control" id="contraseña" name="contraseña" value="<?php echo $_SESSION["contraseña"] ?>"  readonly>
+            <br>
+            <input type="password" class="form-control" id="contraseña-value" name="nuevaContraseña" placeholder="Nueva contraseña">
         </div>
 
         <div class="form-group">
-            <label for="contraseña">Contraseña Actual:</label>
-            <input type="password" class="form-control" id="contraseña" name="contraseña" value="<?php echo $_SESSION['contraseña'] ?>">
+            <label for="email">Email actual:</label>
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo $_SESSION["email"] ?>"  readonly>
+            <br>
+            <input type="email" class="form-control" id="email-value" name="nuevoEmail" placeholder="Nuevo email">
         </div>
 
         <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" name="email" value="<?php echo $_SESSION['email'] ?>">
+            <label for="telefono">Teléfono actual:</label>
+            <input type="telefono" class="form-control" id="telefono" name="telefono" value="<?php echo $_SESSION["telefono"] ?>" readonly>
+            <br>
+            <input type="telefono" class="form-control" id="telefono-value" name="nuevoTelefono" placeholder="Nuevo teléfono">
         </div>
 
         <div class="form-group">
-            <label for="telefono">Teléfono:</label>
-            <input type="telefono" class="form-control" id="telefono" name="telefono" value="<?php echo $_SESSION['telefono'] ?>">
+            <label for="direccion">Dirección actual:</label>
+            <input type="direccion" class="form-control" id="direccion" name="direccion" value="<?php echo $_SESSION["direccion"] ?>"  readonly>
+            <br>
+            <input type="direccion" class="form-control" id="direccion-value" name="nuevaDireccion" placeholder="Nueva dirección">
         </div>
 
-        <div class="form-group">
-            <label for="direccion">Dirección:</label>
-            <input type="direccion" class="form-control" id="direccion" name="direccion" value="<?php echo $_SESSION['direccion'] ?>">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <button type="submit" class="btn btn-primary" onclick="confirmacionModificacion(event)">Guardar Cambios</button>
     </form>
 </div>
 
+<br>
+<hr>
+<div class="container">
+    <h1>Darse de baja</h1>
+    <form method="post" action="darse-de-baja.php">
+        <p>¿Estás seguro de que deseas darte de baja de la aplicación? Todos tus datos serán eliminados y no podrás recuperarlos.</p>
+        <button type="submit" class="btn btn-danger" onclick="confirmacionBaja(event)">Darse de baja</button>
+    </form>
+</div>
 
 
 <br><br><br><br><br><br><br><br><br> 

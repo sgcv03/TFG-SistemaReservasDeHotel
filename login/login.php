@@ -1,3 +1,6 @@
+<?php 
+ session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +32,7 @@
           <img src="../Imagenes/banderaSpain.png" alt="Bandera España" width="30" height="30" class="rounded-circle">
         </span>
         <li class="nav-item">
-          <a class="nav-link" href="../Index.php">Inicio</a>
+          <a class="nav-link" href="../index.php">Inicio</a>
         </li>
         
     </div>
@@ -41,7 +44,6 @@
   <div class="login-container">
     <div class="login-form">
     <?php
-      session_start();
       if (isset($_SESSION['error'])) {
         echo "<p style='color:red;'>" . $_SESSION['error'] . "</p>";
         unset($_SESSION['error']);

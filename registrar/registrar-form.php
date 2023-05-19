@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$link = mysqli_connect("localhost", "root", "root", "tfg_hoteles");
+$link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
  
 // comprobar conexion
 if($link === false){
@@ -72,7 +72,7 @@ $sql = "INSERT INTO clientes (dni_cliente, nombre, apellidos, usuario, contraseÃ
 ('$dni', '$nombre', '$apellidos','$usuario','$password','$email', '$telefono' , '$direccion')";
 
 if(mysqli_query($link, $sql)){
-    header('Location: ../Index.php');
+    header('Location: ../index.php');
   }else{
     $_SESSION['error'] = "El usuario no estÃ¡ registrado en nuestro sistema. Introduzca de nuevo las credenciales.";
     header('Location: registrar.php');

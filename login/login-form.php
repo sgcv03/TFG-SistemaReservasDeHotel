@@ -1,8 +1,7 @@
-
 <?php
 session_start(); // Iniciar sesión
 
-$link = mysqli_connect("localhost", "root", "root", "tfg_hoteles");
+$link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
 
 // Comprobar conexión
 if($link === false){
@@ -30,7 +29,7 @@ if(mysqli_num_rows($resultado) == 1){
     $_SESSION['email'] = $fila['email'];
     $_SESSION['telefono'] = $fila['telefono'];
     $_SESSION['direccion'] = $fila['direccion'];
-    header("Location: ../Index.php");
+    header("Location: ../index.php");
     
 } else{
     $_SESSION['error'] = "No se ha podido iniciar sesión. Por favor, inténtelo de nuevo.";
