@@ -70,7 +70,7 @@
           <img src="../Imagenes/banderaSpain.png" alt="Español" width="30" height="30" class="rounded-circle">
         </span>
         <li class="nav-item">
-          <a class="nav-link" href="../Index.php">Inicio</a>
+          <a class="nav-link" href="../index.php">Inicio</a>
         </li>
         <?php
           if(isset($_SESSION["loggedin"]) == true){ 

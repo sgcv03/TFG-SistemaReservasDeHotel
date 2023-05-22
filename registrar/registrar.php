@@ -84,7 +84,7 @@ session_start();
           </div>
           <div class="form-group">
             <label for="telefono">Teléfono de contacto</label>
-            <input type="telefono" class="form-control" name="telefono" placeholder="Ejemplo: +34 623 45 83 51" required>
+            <input type="telefono" class="form-control" name="telefono" placeholder="Ejemplo: 623 45 83 51" required>
           </div>
           <div class="form-group">
             <label  for="direccion">Dirección</label>

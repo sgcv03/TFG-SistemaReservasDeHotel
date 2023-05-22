@@ -51,6 +51,15 @@ if (mysqli_num_rows($result) > 0) {
     exit();
 }
 
+//Comprobar que la contraseña no supera la longitud
+$sql = "SELECT * FROM clientes WHERE contraseña='$password'";
+$result = mysqli_query($link, $sql);
+if (strlen($password) > 10) {
+    $_SESSION['error'] = "La contraseña supera los 10 caracteres";
+    header('Location: registrar.php');
+    exit();
+}
+
 //Validar numero de telefono
 if (!preg_match('/^\d{9}$/', $telefono)){
     $_SESSION['error'] = "El número de teléfono no tiene un formato válido";
@@ -74,7 +83,7 @@ $sql = "INSERT INTO clientes (dni_cliente, nombre, apellidos, usuario, contrase�
 if(mysqli_query($link, $sql)){
     header('Location: ../index.php');
   }else{
-    $_SESSION['error'] = "El usuario no está registrado en nuestro sistema. Introduzca de nuevo las credenciales.";
+    $_SESSION['error'] = "Error al registrar el usuario. Introduzca de nuevo las credenciales.";
     header('Location: registrar.php');
     exit();
   }

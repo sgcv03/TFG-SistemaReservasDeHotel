@@ -1,6 +1,5 @@
 create database tfg_hoteles;
 use tfg_hoteles;
-drop database tfg_hoteles;
 
 CREATE TABLE clientes (
   DNI_cliente VARCHAR(9) PRIMARY KEY,
