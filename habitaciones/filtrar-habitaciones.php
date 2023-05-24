@@ -1,15 +1,15 @@
 <?php
-session_start(); // Iniciamos la sesión
+session_start();
 ?>
-
 <!DOCTYPE html>
-<html lang="es">
+<html>
+
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Resultados del hotel | CostaMS</title>
+    <title>Resultado Habitaciones | CostaMS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
     </script>
@@ -52,19 +52,16 @@ session_start(); // Iniciamos la sesión
         </div>
     </nav>
 
+
     <table class="table table-striped">
         <tbody>
             <?php
-            // Verificar si se ha enviado el formulario de búsqueda
-            if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['pais']) && isset($_GET['categoria'])) {
-                // Obtener los parámetros de búsqueda
-                $pais = $_GET['pais'];
-                $categoria = $_GET['categoria'];
-
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['id_hotel'])) {
+                $id_hotel = $_SESSION['id_hotel'];
                 // Realizar la consulta a la base de datos para obtener los hoteles filtrados
                 // Aquí debes ajustar la consulta según la estructura de tu base de datos y los nombres de los campos
                 $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
-                $query = "SELECT * FROM hoteles WHERE pais = '$pais' AND categoria = '$categoria'";
+                $query = "SELECT * FROM hoteles WHERE id_hotel = '$id_hotel'";
                 $result = mysqli_query($link, $query);
 
                 // Verificar si se encontraron resultados
@@ -81,12 +78,6 @@ session_start(); // Iniciamos la sesión
                         echo "<p><strong>Descripción:</strong> " . $row['descripcion'] . "</p>";
                         echo "<p><strong>Email:</strong> " . $row['email'] . "</p>";
                         echo "<p><strong>Teléfono:</strong> " . $row['telefono'] . "</p>";
-                        echo "</td>";
-                        echo "<td style='text-align: center; vertical-align: middle;'>";
-                        // Guardar el id_hotel en la variable de sesión
-                        $_SESSION['id_hotel'] = $row['id_hotel'];
-                        echo "<a href='../habitaciones/filtrar-habitaciones.php' class='btn btn-primary'>Ver habitaciones</a>";
-                        echo "</td>";
                         echo "</tr>";
                     }
                 } else {
@@ -101,10 +92,81 @@ session_start(); // Iniciamos la sesión
             ?>
         </tbody>
     </table>
+    <br>
+    <div class="container">
+        <h2>Filtro de Fechas</h2>
+        <form action="" method="GET">
+            <div class="form-group">
+                <label for="fechaEntrada">Fecha de Entrada:</label>
+                <input type="date" id="fechaEntrada" name="fechaEntrada" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaSalida">Fecha de Salida:</label>
+                <input type="date" id="fechaSalida" name="fechaSalida" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+        <br>
+        <div id="habitaciones">
+            <?php
+            // Verificar si se ha enviado el formulario de filtrado
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['fechaEntrada']) && isset($_GET['fechaSalida']) && isset($_SESSION['id_hotel'])) {
+                // Obtener las fechas de entrada y salida del formulario
+                $fechaEntrada = $_GET['fechaEntrada'];
+                $fechaSalida = $_GET['fechaSalida'];
+
+                // Obtener el id del hotel (suponiendo que esté almacenado en la variable de sesión $_SESSION['id_hotel'])
+                $id_hotel = $_SESSION['id_hotel'];
+
+                // Realizar la consulta a la base de datos para obtener las habitaciones disponibles del hotel específico
+                // Aquí debes ajustar la consulta según la estructura de tu base de datos y los nombres de los campos
+                $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
+                $query = "SELECT * FROM habitaciones WHERE estado = 'disponible' AND id_hotel = '$id_hotel'";
+
+                // Si se proporcionan las fechas de entrada y salida, se filtran las habitaciones disponibles para esas fechas
+                if (!empty($fechaEntrada) && !empty($fechaSalida)) {
+                    $query .= " AND id_habitacion NOT IN (
+                SELECT id_habitacion FROM reservas
+                WHERE (fecha_Entrada <= '$fechaEntrada' AND fecha_Salida >= '$fechaEntrada')
+                OR (fecha_Entrada <= '$fechaSalida' AND fecha_Salida >= '$fechaSalida')
+                OR (fecha_Entrada >= '$fechaEntrada' AND fecha_Salida <= '$fechaSalida')
+            )";
+                }
+
+                $result = mysqli_query($link, $query);
+
+                // Verificar si se encontraron habitaciones disponibles
+                if (mysqli_num_rows($result) > 0) {
+                    echo "<table class='table table-striped'>";
+                    echo "<thead><tr><th>Tipo</th><th>Precio por noche</th><th>Descripción</th><th>Reservar</th></tr></thead>";
+                    echo "<tbody>";
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        // Mostrar la información de las habitaciones disponibles en una fila de la tabla
+                        echo "<tr>";
+                        echo "<td>" . $row['tipo'] . "</td>";
+                        echo "<td>" . $row['precioNoche'] . "</td>";
+                        echo "<td>" . $row['descripcion'] . "</td>";
+                        echo "<td><a href='#' class='btn btn-primary'>Reservar</a></td>";
+                        echo "</tr>";
+                    }
+                    echo "</tbody>";
+                    echo "</table>";
+                } else {
+                    echo "<p>No se encontraron habitaciones disponibles para las fechas seleccionadas.</p>";
+                }
+
+                // Cerrar la conexión a la base de datos
+                mysqli_close($link);
+            }
+            ?>
+        </div>
+
+    </div>
 
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Footer -->
     <footer class="bg-dark text-white py-4">
         <div class="container">
@@ -142,3 +204,5 @@ session_start(); // Iniciamos la sesión
         </div>
     </footer>
 </body>
+
+</html>

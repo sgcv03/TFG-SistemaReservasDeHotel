@@ -1,13 +1,16 @@
 <?php
 session_start();
 
+
 $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
  
 // comprobar conexion
 if($link === false){
     die("ERROR:  " . mysqli_connect_error());
 }
+
  
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Obtener datos
 $nombre = $_POST["nombre"];
 $apellidos = $_POST['apellidos'];
@@ -80,6 +83,7 @@ if (mysqli_num_rows($result) > 0) {
 $sql = "INSERT INTO clientes (dni_cliente, nombre, apellidos, usuario, contraseña, email, telefono, direccion) VALUES 
 ('$dni', '$nombre', '$apellidos','$usuario','$password','$email', '$telefono' , '$direccion')";
 
+
 if(mysqli_query($link, $sql)){
     header('Location: ../index.php');
   }else{
@@ -87,8 +91,6 @@ if(mysqli_query($link, $sql)){
     header('Location: registrar.php');
     exit();
   }
-  
-  
-mysqli_close($link);
 
-?>
+ 
+}
