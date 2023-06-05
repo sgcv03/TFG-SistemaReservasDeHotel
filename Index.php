@@ -44,7 +44,7 @@ session_start(); // Iniciamos la sesión
                     <a class="nav-link btn btn-outline-primary" href="login/login.php">Iniciar sesión</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link btn btn-primary" href="registrar/registrar.php">Hazte una cuenta</a>
+                    <a style="color: white;" class="nav-link btn btn-primary" href="registrar/registrar.php">Hazte una cuenta</a>
                   </li>';
         }
         ?>

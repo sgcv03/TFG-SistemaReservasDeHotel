@@ -17,6 +17,24 @@ session_start();
     <link rel="icon" type="image/x-icon" href="../Imagenes/LogoHotel.png">
 </head>
 
+<!--Script para mantener las fechas introducidas-->
+<script>
+  // Esperar a que la página se cargue
+  window.addEventListener('DOMContentLoaded', function() {
+    // Obtener los campos de fechas
+    var fechaEntradaInput = document.getElementById('fechaEntrada');
+    var fechaSalidaInput = document.getElementById('fechaSalida');
+
+    // Obtener los valores de las fechas ingresadas
+    var fechaEntrada = '<?php echo isset($_GET["fechaEntrada"]) ? $_GET["fechaEntrada"] : "" ?>';
+    var fechaSalida = '<?php echo isset($_GET["fechaSalida"]) ? $_GET["fechaSalida"] : "" ?>';
+
+    // Asignar los valores a los campos de fechas
+    fechaEntradaInput.value = fechaEntrada;
+    fechaSalidaInput.value = fechaSalida;
+  });
+</script>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <img class="navbar-brand" src="../Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
@@ -44,7 +62,7 @@ session_start();
                     <a class="nav-link btn btn-outline-primary" href="../login/login.php">Iniciar sesión</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link btn btn-primary" href="../registrar/registrar.php">Hazte una cuenta</a>
+                    <a style="color: white;" class="nav-link btn btn-primary" href="../registrar/registrar.php">Hazte una cuenta</a>
                   </li>';
                 }
                 ?>
@@ -70,7 +88,7 @@ session_start();
                         echo "<tr>";
                         echo "<td style='width: 400px; text-align: center; vertical-align: middle;'><img src='data:image/jpeg;base64," . base64_encode($row['imagen']) . "' class='img-thumbnail' style='width: 150px; height: 150px;' alt='Imagen del hotel'></td>";
                         echo "<td>";
-                        echo "<h3>" . $row['nombre'] . "</h3>";
+                        echo "<h3><i>" . $row['nombre'] . "</i></h3>";
                         echo "<p><strong>Dirección:</strong> " . $row['direccion'] . "</p>";
                         echo "<p><strong>Ciudad:</strong> " . $row['ciudad'] . "</p>";
                         echo "<p><strong>País:</strong> " . $row['pais'] . "</p>";
@@ -94,15 +112,15 @@ session_start();
     </table>
     <br>
     <div class="container">
-        <h2>Filtro de Fechas</h2>
+        <h2>Introduce las fechas de estancia</h2>
         <form action="" method="GET">
             <div class="form-group">
                 <label for="fechaEntrada">Fecha de Entrada:</label>
-                <input type="date" id="fechaEntrada" name="fechaEntrada" class="form-control" required>
+                <input type="date" id="fechaEntrada" name="fechaEntrada" class="form-control" required min="<?php echo date('Y-m-d'); ?>">
             </div>
             <div class="form-group">
                 <label for="fechaSalida">Fecha de Salida:</label>
-                <input type="date" id="fechaSalida" name="fechaSalida" class="form-control" required>
+                <input type="date" id="fechaSalida" name="fechaSalida" class="form-control" required min="<?php echo date('Y-m-d'); ?>">
             </div>
             <button type="submit" class="btn btn-primary">Filtrar</button>
         </form>
@@ -114,14 +132,15 @@ session_start();
                 // Obtener las fechas de entrada y salida del formulario
                 $fechaEntrada = $_GET['fechaEntrada'];
                 $fechaSalida = $_GET['fechaSalida'];
+                $_SESSION['fechaEntrada'] = $fechaEntrada;
+                $_SESSION['fechaSalida'] = $fechaSalida;
 
                 // Obtener el id del hotel (suponiendo que esté almacenado en la variable de sesión $_SESSION['id_hotel'])
                 $id_hotel = $_SESSION['id_hotel'];
 
                 // Realizar la consulta a la base de datos para obtener las habitaciones disponibles del hotel específico
-                // Aquí debes ajustar la consulta según la estructura de tu base de datos y los nombres de los campos
                 $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
-                $query = "SELECT * FROM habitaciones WHERE estado = 'disponible' AND id_hotel = '$id_hotel'";
+                $query = "SELECT * FROM habitaciones WHERE id_hotel = '$id_hotel'";
 
                 // Si se proporcionan las fechas de entrada y salida, se filtran las habitaciones disponibles para esas fechas
                 if (!empty($fechaEntrada) && !empty($fechaSalida)) {
@@ -137,20 +156,32 @@ session_start();
 
                 // Verificar si se encontraron habitaciones disponibles
                 if (mysqli_num_rows($result) > 0) {
-                    echo "<table class='table table-striped'>";
-                    echo "<thead><tr><th>Tipo</th><th>Precio por noche</th><th>Descripción</th><th>Reservar</th></tr></thead>";
-                    echo "<tbody>";
+                    echo "<div class='habitaciones-list'>";
                     while ($row = mysqli_fetch_assoc($result)) {
-                        // Mostrar la información de las habitaciones disponibles en una fila de la tabla
-                        echo "<tr>";
-                        echo "<td>" . $row['tipo'] . "</td>";
-                        echo "<td>" . $row['precioNoche'] . "</td>";
-                        echo "<td>" . $row['descripcion'] . "</td>";
-                        echo "<td><a href='#' class='btn btn-primary'>Reservar</a></td>";
-                        echo "</tr>";
+                        // Mostrar la información de las habitaciones disponibles
+                        echo "<br>";
+                        echo "<hr>";
+                        echo "<h3>" . $row['tipo'] . "</h3>";
+                        echo "<p>" . $row['descripcion'] . "</p>";
+                        $_SESSION['id_habitacion'] = $row['id_habitacion'];
+                        echo "<div class='habitacion'>";
+                        echo "<div class='habitacion-imagen'>";
+                        echo "<img src='data:image/jpeg;base64, " . base64_encode($row['imagen']) . "'style='width: 400px;' class='img-thumbnail' alt='Imagen habitacion'>";
+                        echo "</div>";
+                        echo "<div class='habitacion-info'>";
+                        echo "<p><strong>Precio por noche:</strong> " . $row['precioNoche'] . "€</p>";
+                        // Verificar si el usuario ha iniciado sesión
+                        if (isset($_SESSION['loggedin'])) {
+                            //Si el usuario ha iniciado sesión, proceder con la reserva de la habitacion
+                            echo "<a href='../reservar/reservar.php' class='btn btn-primary'>Reservar</a>";
+                        } else {
+                            // Si no ha iniciado sesión, le redirige a la página de login
+                            echo "<a href='../login/login.php' class='btn btn-primary'>Reservar</a>";
+                        }
+                        echo "</div>";
+                        echo "</div>";
                     }
-                    echo "</tbody>";
-                    echo "</table>";
+                    echo "</div>";
                 } else {
                     echo "<p>No se encontraron habitaciones disponibles para las fechas seleccionadas.</p>";
                 }
@@ -162,9 +193,6 @@ session_start();
         </div>
 
     </div>
-
-
-
 
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Footer -->

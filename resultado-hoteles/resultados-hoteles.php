@@ -9,7 +9,7 @@ session_start(); // Iniciamos la sesión
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Resultados del hotel | CostaMS</title>
+    <title>Hoteles | CostaMS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
     </script>
@@ -44,7 +44,7 @@ session_start(); // Iniciamos la sesión
                     <a class="nav-link btn btn-outline-primary" href="../login/login.php">Iniciar sesión</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link btn btn-primary" href="../registrar/registrar.php">Hazte una cuenta</a>
+                    <a style="color: white;" class="nav-link btn btn-primary" href="../registrar/registrar.php">Hazte una cuenta</a>
                   </li>';
                 }
                 ?>
@@ -62,7 +62,6 @@ session_start(); // Iniciamos la sesión
                 $categoria = $_GET['categoria'];
 
                 // Realizar la consulta a la base de datos para obtener los hoteles filtrados
-                // Aquí debes ajustar la consulta según la estructura de tu base de datos y los nombres de los campos
                 $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
                 $query = "SELECT * FROM hoteles WHERE pais = '$pais' AND categoria = '$categoria'";
                 $result = mysqli_query($link, $query);
@@ -73,7 +72,7 @@ session_start(); // Iniciamos la sesión
                         echo "<tr>";
                         echo "<td style='width: 400px; text-align: center; vertical-align: middle;'><img src='data:image/jpeg;base64," . base64_encode($row['imagen']) . "' class='img-thumbnail' style='width: 150px; height: 150px;' alt='Imagen del hotel'></td>";
                         echo "<td>";
-                        echo "<h3>" . $row['nombre'] . "</h3>";
+                        echo "<h3><i>". $row['nombre'] . "</i></h3> " ;
                         echo "<p><strong>Dirección:</strong> " . $row['direccion'] . "</p>";
                         echo "<p><strong>Ciudad:</strong> " . $row['ciudad'] . "</p>";
                         echo "<p><strong>País:</strong> " . $row['pais'] . "</p>";
