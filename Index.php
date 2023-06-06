@@ -34,7 +34,7 @@ session_start(); // Iniciamos la sesión
                     <a class="nav-link" href="perfil-usuario/perfil-usuario.php">Mi Perfil (' . $_SESSION["usuario"] . ')</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Mis Reservas</a>
+                    <a class="nav-link" href="../reservar/reservas-usuario.php">Mis Reservas</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="CerrarSesion.php">Cerrar sesión</a>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Verificar si se ha enviado el formulario de confirmación de reserva
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_habitacion']) && isset($_POST['precioTotal']) && isset($_POST['fechaEntrada']) && isset($_POST['fechaSalida']) && isset($_POST['dni_cliente'])) {
     $id_habitacion = $_POST['id_habitacion'];

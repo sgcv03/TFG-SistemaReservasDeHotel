@@ -55,7 +55,7 @@ session_start();
                     <a class="nav-link" href="../perfil-usuario/perfil-usuario.php">Mi Perfil (' . $_SESSION["usuario"] . ')</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Mis Reservas</a>
+                    <a class="nav-link" href="reservas-usuario.php">Mis Reservas</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="../CerrarSesion.php">Cerrar sesión</a>
@@ -92,15 +92,15 @@ session_start();
 
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<p><strong>Precio por noche:</strong> " . $row['precioNoche'] . "€</p>";
-                                echo "<p><strong>Fecha de entrada:</strong>" . $_SESSION['fechaEntrada'] . "</p>";
-                                echo "<p><strong>Fecha de salida:</strong>" . $_SESSION['fechaSalida'] . "</p>";
+                                echo "<p><strong>Precio por noche: </strong>" . $row['precioNoche'] . "€</p>";
+                                echo "<p><strong>Fecha de entrada: </strong>" . $_SESSION['fechaEntrada'] . "</p>";
+                                echo "<p><strong>Fecha de salida: </strong>" . $_SESSION['fechaSalida'] . "</p>";
                                 // Calcular el precio total de la habitación
                                 $precioNoche = $row['precioNoche'];
                                 $numNoches = (strtotime($_SESSION['fechaSalida']) - strtotime($_SESSION['fechaEntrada'])) / (60 * 60 * 24); // Diferencia en días
-                                echo "<p><strong>Noches:</strong> " . $numNoches . " noches</p>";
+                                echo "<p><strong>Noches: </strong>" . $numNoches . " noches</p>";
                                 $precioTotal = $precioNoche * $numNoches;
-                                echo "<p><strong>Precio total:</strong> " . $precioTotal . "€</p>";
+                                echo "<p><strong>Precio total: </strong>" . $precioTotal . "€</p>";
                             }
                         }
 

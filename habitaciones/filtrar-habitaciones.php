@@ -19,20 +19,20 @@ session_start();
 
 <!--Script para mantener las fechas introducidas-->
 <script>
-  // Esperar a que la página se cargue
-  window.addEventListener('DOMContentLoaded', function() {
-    // Obtener los campos de fechas
-    var fechaEntradaInput = document.getElementById('fechaEntrada');
-    var fechaSalidaInput = document.getElementById('fechaSalida');
+    // Esperar a que la página se cargue
+    window.addEventListener('DOMContentLoaded', function() {
+        // Obtener los campos de fechas
+        var fechaEntradaInput = document.getElementById('fechaEntrada');
+        var fechaSalidaInput = document.getElementById('fechaSalida');
 
-    // Obtener los valores de las fechas ingresadas
-    var fechaEntrada = '<?php echo isset($_GET["fechaEntrada"]) ? $_GET["fechaEntrada"] : "" ?>';
-    var fechaSalida = '<?php echo isset($_GET["fechaSalida"]) ? $_GET["fechaSalida"] : "" ?>';
+        // Obtener los valores de las fechas ingresadas
+        var fechaEntrada = '<?php echo isset($_GET["fechaEntrada"]) ? $_GET["fechaEntrada"] : "" ?>';
+        var fechaSalida = '<?php echo isset($_GET["fechaSalida"]) ? $_GET["fechaSalida"] : "" ?>';
 
-    // Asignar los valores a los campos de fechas
-    fechaEntradaInput.value = fechaEntrada;
-    fechaSalidaInput.value = fechaSalida;
-  });
+        // Asignar los valores a los campos de fechas
+        fechaEntradaInput.value = fechaEntrada;
+        fechaSalidaInput.value = fechaSalida;
+    });
 </script>
 
 <body>
@@ -52,7 +52,7 @@ session_start();
                     <a class="nav-link" href="../perfil-usuario/perfil-usuario.php">Mi Perfil (' . $_SESSION["usuario"] . ')</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Mis Reservas</a>
+                    <a class="nav-link" href="../reservar/reservas-usuario.php">Mis Reservas</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="../CerrarSesion.php">Cerrar sesión</a>
@@ -127,6 +127,7 @@ session_start();
         <br>
         <div id="habitaciones">
             <?php
+            $filtroCorrecto = false;
             // Verificar si se ha enviado el formulario de filtrado
             if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['fechaEntrada']) && isset($_GET['fechaSalida']) && isset($_SESSION['id_hotel'])) {
                 // Obtener las fechas de entrada y salida del formulario
@@ -143,14 +144,18 @@ session_start();
                 $query = "SELECT * FROM habitaciones WHERE id_hotel = '$id_hotel'";
 
                 // Si se proporcionan las fechas de entrada y salida, se filtran las habitaciones disponibles para esas fechas
-                if (!empty($fechaEntrada) && !empty($fechaSalida)) {
+                if (!empty($fechaEntrada) && !empty($fechaSalida) && $fechaEntrada <= $fechaSalida) {
                     $query .= " AND id_habitacion NOT IN (
-                SELECT id_habitacion FROM reservas
-                WHERE (fecha_Entrada <= '$fechaEntrada' AND fecha_Salida >= '$fechaEntrada')
-                OR (fecha_Entrada <= '$fechaSalida' AND fecha_Salida >= '$fechaSalida')
-                OR (fecha_Entrada >= '$fechaEntrada' AND fecha_Salida <= '$fechaSalida')
-            )";
+                        SELECT id_habitacion FROM reservas
+                        WHERE (fecha_entrada <= '$fechaEntrada' AND fecha_salida >= '$fechaEntrada')
+                        OR (fecha_entrada <= '$fechaSalida' AND fecha_salida >= '$fechaSalida')
+                        OR (fecha_entrada >= '$fechaEntrada' AND fecha_salida <= '$fechaSalida')
+                    )";
+                } else {
+                    echo "La fecha de entrada no puede ser posterior a la fecha de salida";
+                    exit();
                 }
+
 
                 $result = mysqli_query($link, $query);
 

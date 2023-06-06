@@ -75,7 +75,7 @@
         <?php
           if(isset($_SESSION["loggedin"]) == true){ 
             echo '<li class="nav-item">
-            <a class="nav-link" href="#">Mis Reservas</a>
+            <a class="nav-link" href="../reservar/reservas-usuario.php">Mis Reservas</a>
           </li>
             <li class="nav-item">
                     <a class="nav-link" href="../CerrarSesion.php">Cerrar sesión</a>
