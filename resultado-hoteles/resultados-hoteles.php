@@ -82,9 +82,7 @@ session_start(); // Iniciamos la sesión
                         echo "<p><strong>Teléfono:</strong> " . $row['telefono'] . "</p>";
                         echo "</td>";
                         echo "<td style='text-align: center; vertical-align: middle;'>";
-                        // Guardar el id_hotel en la variable de sesión
-                        $_SESSION['id_hotel'] = $row['id_hotel'];
-                        echo "<a href='../habitaciones/filtrar-habitaciones.php' class='btn btn-primary'>Ver habitaciones</a>";
+                        echo "<a href='../habitaciones/filtrar-habitaciones.php?id_hotel=" . $row['id_hotel'] . "' class='btn btn-primary'>Ver habitaciones</a>";
                         echo "</td>";
                         echo "</tr>";
                     }

@@ -81,26 +81,25 @@ session_start();
                         <h2 class="card-title"><strong>Detalles de la reserva:</strong></h2>
                         <?php
                         // Verificar si se ha enviado el formulario de filtrado
-                        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['id_habitacion'])) {
-                            $id_habitacion = $_SESSION['id_habitacion'];
+                        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_habitacion'])) {
+                            $id_habitacion = $_GET['id_habitacion'];
 
                             $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
                             $query = "SELECT * FROM habitaciones WHERE id_habitacion = '$id_habitacion'";
-                        }
+                            $result = mysqli_query($link, $query);
 
-                        $result = mysqli_query($link, $query);
-
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<p><strong>Precio por noche: </strong>" . $row['precioNoche'] . "€</p>";
-                                echo "<p><strong>Fecha de entrada: </strong>" . $_SESSION['fechaEntrada'] . "</p>";
-                                echo "<p><strong>Fecha de salida: </strong>" . $_SESSION['fechaSalida'] . "</p>";
-                                // Calcular el precio total de la habitación
-                                $precioNoche = $row['precioNoche'];
-                                $numNoches = (strtotime($_SESSION['fechaSalida']) - strtotime($_SESSION['fechaEntrada'])) / (60 * 60 * 24); // Diferencia en días
-                                echo "<p><strong>Noches: </strong>" . $numNoches . " noches</p>";
-                                $precioTotal = $precioNoche * $numNoches;
-                                echo "<p><strong>Precio total: </strong>" . $precioTotal . "€</p>";
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<p><strong>Precio por noche: </strong>" . $row['precioNoche'] . "€</p>";
+                                    echo "<p><strong>Fecha de entrada: </strong>" . $_SESSION['fechaEntrada'] . "</p>";
+                                    echo "<p><strong>Fecha de salida: </strong>" . $_SESSION['fechaSalida'] . "</p>";
+                                    // Calcular el precio total de la habitación
+                                    $precioNoche = $row['precioNoche'];
+                                    $numNoches = (strtotime($_SESSION['fechaSalida']) - strtotime($_SESSION['fechaEntrada'])) / (60 * 60 * 24); // Diferencia en días
+                                    echo "<p><strong>Noches: </strong>" . $numNoches . " noches</p>";
+                                    $precioTotal = $precioNoche * $numNoches;
+                                    echo "<p><strong>Precio total: </strong>" . $precioTotal . "€</p>";
+                                }
                             }
                         }
 
@@ -136,28 +135,27 @@ session_start();
                         }
 
                         // Verificar si se ha enviado el formulario de filtrado
-                        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['id_habitacion'])) {
-                            $id_habitacion = $_SESSION['id_habitacion'];
+                        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_habitacion'])) {
+                            $id_habitacion = $_GET['id_habitacion'];
 
                             $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
                             $query = "SELECT * FROM habitaciones WHERE id_habitacion = '$id_habitacion'";
-                        }
+                            $result = mysqli_query($link, $query);
 
-                        $result = mysqli_query($link, $query);
-
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                // Mostrar la información de las habitaciones disponibles
-                                echo "<h3><i>" . $row['tipo'] . "</i></h3>";
-                                echo "<p class='card-text'>" . $row['descripcion'] . "</p>";
-                                $_SESSION['id_habitacion'] = $row['id_habitacion'];
-                                echo "<div class='habitacion'>";
-                                echo "<div class='habitacion-imagen'>";
-                                echo "<img src='data:image/jpeg;base64, " . base64_encode($row['imagen']) . "' style='width: 400px;' class='img-thumbnail' alt='Imagen habitacion'>";
-                                echo "</div>";
-                                echo "</div>";
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    // Mostrar la información de las habitaciones disponibles
+                                    echo "<h3><i>" . $row['tipo'] . "</i></h3>";
+                                    echo "<p class='card-text'>" . $row['descripcion'] . "</p>";
+                                    echo "<div class='habitacion'>";
+                                    echo "<div class='habitacion-imagen'>";
+                                    echo "<img src='data:image/jpeg;base64, " . base64_encode($row['imagen']) . "' style='width: 400px;' class='img-thumbnail' alt='Imagen habitacion'>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                }
                             }
                         }
+
                         // Cerrar la conexión a la base de datos
                         mysqli_close($link);
                         ?>
@@ -171,7 +169,7 @@ session_start();
     <!-- Botón de confirmar reserva -->
     <div class="text-center mt-4">
         <form action="confirmar-reserva.php" method="POST">
-            <input type="hidden" name="id_habitacion" value="<?php echo $_SESSION['id_habitacion']; ?>">
+            <input type="hidden" name="id_habitacion" value="<?php echo $_GET['id_habitacion']; ?>">
             <input type="hidden" name="precioTotal" value="<?php echo $precioTotal; ?>">
             <input type="hidden" name="fechaEntrada" value="<?php echo $_SESSION['fechaEntrada']; ?>">
             <input type="hidden" name="fechaSalida" value="<?php echo $_SESSION['fechaSalida']; ?>">

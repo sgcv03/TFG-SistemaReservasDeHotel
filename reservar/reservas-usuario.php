@@ -41,6 +41,7 @@ session_start(); // Iniciamos la sesión
             </ul>
         </div>
     </nav>
+
     <?php
     // Obtener el usuario actual
     $usuario = $_SESSION['dni_cliente'];
@@ -56,6 +57,17 @@ session_start(); // Iniciamos la sesión
         <div class="container">
             <h2>Mis Reservas</h2>
             <table class="table table-striped">
+                <?php
+                if (isset($_SESSION['error'])) {
+                    echo "<p style='color:red;'>" . $_SESSION['error'] . "</p>";
+                    unset($_SESSION['error']);
+                }
+                if (isset($_SESSION['exito'])) {
+                    echo "<p style='color:green;'>" . $_SESSION['exito'] . "</p>";
+                    unset($_SESSION['exito']);
+                }
+
+                ?>
                 <thead>
                     <tr>
                         <th>Numero reserva</th>
@@ -65,6 +77,7 @@ session_start(); // Iniciamos la sesión
                         <th>Precio Total</th>
                         <th>Estado</th>
                         <th>Habitacion reservada</th>
+                        <th>Cancelar reserva</th>
 
                         <!-- Agrega aquí más columnas si lo necesitas -->
                     </tr>
@@ -87,6 +100,7 @@ session_start(); // Iniciamos la sesión
                         echo "<td>" . $row['precioTotal'] . "€</td>";
                         echo "<td>" . $row['estado'] . "</td>";
                         echo "<td>" . $row_habitacion['tipo'] . "</td>";
+                        echo "<td><a class='btn btn-danger' href='cancelar-reserva.php?id_reserva=" . $row['id_reserva'] . "'>Cancelar</a></td>";
 
                         // Agrega aquí más columnas si lo necesitas
                         echo "</tr>";

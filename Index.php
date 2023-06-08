@@ -11,8 +11,9 @@ session_start(); // Iniciamos la sesión
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Página Principal | CostaMS</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="index.css">
   <link rel="icon" type="image/x-icon" href="Imagenes/LogoHotel.png">
 </head>
@@ -128,6 +129,86 @@ session_start(); // Iniciamos la sesión
       </form>
     </div>
   </div>
+
+  <br>
+  <hr>
+  <div class="text-center">
+    <h2>Últimas publicaciones de nuestros hoteles</h2>
+  </div>
+
+  <div class="justify-content-center">
+    <?php
+    // Realiza la conexión a la base de datos
+    $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
+
+    // Consulta para obtener las imágenes de hoteles
+    $query = "SELECT imagen FROM hoteles";
+    $result = mysqli_query($link, $query);
+    ?>
+
+    <!-- Slider -->
+    <div id="carouselExampleIndicators" class="carousel slide d-flex justify-content-center align-items-center" style="max-width: 600px;">
+      <ol class="carousel-indicators">
+        <?php
+        $i = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+          // Crea un indicador para cada imagen
+          echo "<li data-target='#carouselExampleIndicators' data-slide-to='" . $i . "' ";
+          if ($i == 0) {
+            echo "class='active'";
+          }
+          echo "></li>";
+          $i++;
+        }
+        ?>
+      </ol>
+      <div class="carousel-inner">
+        <?php
+        $i = 0;
+        mysqli_data_seek($result, 0); // Reinicia el puntero del resultado a la posición 0
+        while ($row = mysqli_fetch_assoc($result)) {
+          // Crea un elemento de carousel-item para cada imagen obtenida de la base de datos
+          echo "<div class='carousel-item";
+          if ($i == 0) {
+            echo " active";
+          }
+          echo "'>";
+          echo "<img class='d-block w-100' src='data:image/jpeg;base64, " . base64_encode($row['imagen']) . "' alt='Hotel'" . ($i + 1) . "'>";
+          echo "</div>";
+          $i++;
+        }
+        ?>
+
+        <!-- Agrega las imágenes de las habitaciones -->
+        <?php
+        // Consulta para obtener las imágenes de las habitaciones
+        $query = "SELECT imagen FROM habitaciones";
+        $result = mysqli_query($link, $query);
+
+        while ($row = mysqli_fetch_assoc($result)) {
+          // Crea un elemento de carousel-item para cada imagen de habitación
+          echo "<div class='carousel-item'>";
+          echo "<img class='d-block w-100' src='data:image/jpeg;base64, " . base64_encode($row['imagen']) . "' alt='Habitación'>";
+          echo "</div>";
+        }
+        ?>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Siguiente</span>
+      </a>
+    </div>
+
+    <!-- Cierra la conexión a la base de datos -->
+    <?php
+    mysqli_close($link);
+    ?>
+  </div>
+
 
 
   <br><br><br><br><br><br><br><br><br><br><br><br><br>

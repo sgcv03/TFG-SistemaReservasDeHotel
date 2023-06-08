@@ -74,10 +74,9 @@ session_start();
     <table class="table table-striped">
         <tbody>
             <?php
-            if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['id_hotel'])) {
-                $id_hotel = $_SESSION['id_hotel'];
-                // Realizar la consulta a la base de datos para obtener los hoteles filtrados
-                // Aquí debes ajustar la consulta según la estructura de tu base de datos y los nombres de los campos
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_hotel'])) {
+                $id_hotel = $_GET['id_hotel'];
+
                 $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
                 $query = "SELECT * FROM hoteles WHERE id_hotel = '$id_hotel'";
                 $result = mysqli_query($link, $query);
@@ -114,6 +113,7 @@ session_start();
     <div class="container">
         <h2>Introduce las fechas de estancia</h2>
         <form action="" method="GET">
+            <input type="hidden" name="id_hotel" value="<?php echo $_GET['id_hotel']; ?>">
             <div class="form-group">
                 <label for="fechaEntrada">Fecha de Entrada:</label>
                 <input type="date" id="fechaEntrada" name="fechaEntrada" class="form-control" required min="<?php echo date('Y-m-d'); ?>">
@@ -128,16 +128,17 @@ session_start();
         <div id="habitaciones">
             <?php
             $filtroCorrecto = false;
+
             // Verificar si se ha enviado el formulario de filtrado
-            if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['fechaEntrada']) && isset($_GET['fechaSalida']) && isset($_SESSION['id_hotel'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['fechaEntrada']) && isset($_GET['fechaSalida']) && isset($_GET['id_hotel'])) {
                 // Obtener las fechas de entrada y salida del formulario
                 $fechaEntrada = $_GET['fechaEntrada'];
                 $fechaSalida = $_GET['fechaSalida'];
                 $_SESSION['fechaEntrada'] = $fechaEntrada;
                 $_SESSION['fechaSalida'] = $fechaSalida;
 
-                // Obtener el id del hotel (suponiendo que esté almacenado en la variable de sesión $_SESSION['id_hotel'])
-                $id_hotel = $_SESSION['id_hotel'];
+                $_SESSION['id_hotel'] = $_GET['id_hotel'];
+                $id_hotel = $_GET['id_hotel'];
 
                 // Realizar la consulta a la base de datos para obtener las habitaciones disponibles del hotel específico
                 $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
@@ -146,16 +147,15 @@ session_start();
                 // Si se proporcionan las fechas de entrada y salida, se filtran las habitaciones disponibles para esas fechas
                 if (!empty($fechaEntrada) && !empty($fechaSalida) && $fechaEntrada <= $fechaSalida) {
                     $query .= " AND id_habitacion NOT IN (
-                        SELECT id_habitacion FROM reservas
-                        WHERE (fecha_entrada <= '$fechaEntrada' AND fecha_salida >= '$fechaEntrada')
-                        OR (fecha_entrada <= '$fechaSalida' AND fecha_salida >= '$fechaSalida')
-                        OR (fecha_entrada >= '$fechaEntrada' AND fecha_salida <= '$fechaSalida')
-                    )";
+            SELECT id_habitacion FROM reservas
+            WHERE (fecha_entrada <= '$fechaEntrada' AND fecha_salida >= '$fechaEntrada')
+            OR (fecha_entrada <= '$fechaSalida' AND fecha_salida >= '$fechaSalida')
+            OR (fecha_entrada >= '$fechaEntrada' AND fecha_salida <= '$fechaSalida')
+        )";
                 } else {
                     echo "La fecha de entrada no puede ser posterior a la fecha de salida";
                     exit();
                 }
-
 
                 $result = mysqli_query($link, $query);
 
@@ -168,17 +168,16 @@ session_start();
                         echo "<hr>";
                         echo "<h3>" . $row['tipo'] . "</h3>";
                         echo "<p>" . $row['descripcion'] . "</p>";
-                        $_SESSION['id_habitacion'] = $row['id_habitacion'];
                         echo "<div class='habitacion'>";
                         echo "<div class='habitacion-imagen'>";
-                        echo "<img src='data:image/jpeg;base64, " . base64_encode($row['imagen']) . "'style='width: 400px;' class='img-thumbnail' alt='Imagen habitacion'>";
+                        echo "<img src='data:image/jpeg;base64, " . base64_encode($row['imagen']) . "' style='width: 400px;' class='img-thumbnail' alt='Imagen habitacion'>";
                         echo "</div>";
                         echo "<div class='habitacion-info'>";
                         echo "<p><strong>Precio por noche:</strong> " . $row['precioNoche'] . "€</p>";
                         // Verificar si el usuario ha iniciado sesión
                         if (isset($_SESSION['loggedin'])) {
-                            //Si el usuario ha iniciado sesión, proceder con la reserva de la habitacion
-                            echo "<a href='../reservar/reservar.php' class='btn btn-primary'>Reservar</a>";
+                            // Si el usuario ha iniciado sesión, proceder con la reserva de la habitación
+                            echo "<a href='../reservar/reservar.php?id_habitacion=" . $row['id_habitacion'] . "' class='btn btn-primary'>Reservar</a>";
                         } else {
                             // Si no ha iniciado sesión, le redirige a la página de login
                             echo "<a href='../login/login.php' class='btn btn-primary'>Reservar</a>";
@@ -195,6 +194,8 @@ session_start();
                 mysqli_close($link);
             }
             ?>
+
+
         </div>
 
     </div>
