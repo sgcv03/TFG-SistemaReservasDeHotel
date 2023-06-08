@@ -12,10 +12,10 @@ $result = mysqli_query($link, $query);
 
 // Verifica si la eliminación fue exitosa
 if ($result) {
-    $_SESSION['exito'] = "Se ha cancelado la reserva.";
+    $_SESSION['exitoReserva'] = "Se ha cancelado la reserva.";
     header('Location: reservas-usuario.php');
 } else {
-    $_SESSION['error'] = "No se ha podido cancelar la reserva.";
+    $_SESSION['errorReserva'] = "No se ha podido cancelar la reserva.";
     header('Location: reservas-usuario.php');
     exit();
 }

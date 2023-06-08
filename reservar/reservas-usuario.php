@@ -55,19 +55,19 @@ session_start(); // Iniciamos la sesión
     if (mysqli_num_rows($result) > 0) {
     ?>
         <div class="container">
+            <?php
+            if (isset($_SESSION['errorReserva'])) {
+                echo "<p style='color:red;'>" . $_SESSION['errorReserva'] . "</p>";
+                unset($_SESSION['errorReserva']);
+            }
+            if (isset($_SESSION['exitoReserva'])) {
+                echo "<p style='color:green;'>" . $_SESSION['exitoReserva'] . "</p>";
+                unset($_SESSION['exitoReserva']);
+            }
+
+            ?>
             <h2>Mis Reservas</h2>
             <table class="table table-striped">
-                <?php
-                if (isset($_SESSION['error'])) {
-                    echo "<p style='color:red;'>" . $_SESSION['error'] . "</p>";
-                    unset($_SESSION['error']);
-                }
-                if (isset($_SESSION['exito'])) {
-                    echo "<p style='color:green;'>" . $_SESSION['exito'] . "</p>";
-                    unset($_SESSION['exito']);
-                }
-
-                ?>
                 <thead>
                     <tr>
                         <th>Numero reserva</th>
