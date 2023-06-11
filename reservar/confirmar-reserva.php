@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_habitacion']) && i
     // Verificar si la inserción fue exitosa
     if ($resultado_insertar) {
         header('Location: reservas-usuario.php');
-        
     } else {
         $_SESSION['error'] = "Error al realizar la reserva";
         header('location: reservar.php');
@@ -26,10 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_habitacion']) && i
 
     // Cerrar la conexión a la base de datos
     mysqli_close($link);
-
 } else {
     $_SESSION['error'] = "Error: No se ha enviado el formulario de confirmación de reserva.";
     header('location: reservar.php');
     exit();
-
 }
+
+

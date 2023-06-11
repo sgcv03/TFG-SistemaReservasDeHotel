@@ -11,15 +11,40 @@ session_start(); // Iniciamos la sesión
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Mis reservas | CostaMS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="../index.css">
     <link rel="icon" type="image/x-icon" href="../Imagenes/LogoHotel.png">
 </head>
 
+<script>
+    function confirmacionCancelacion(event) {
+        event.preventDefault(); // Detiene el envío del formulario
+
+        Swal.fire({
+            title: 'Cancelar Reserva',
+            text: '¿Estás seguro de que deseas cancelar la reserva?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Cancelar Reserva',
+            cancelButtonText: 'Salir'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si se confirma la baja, se envía el formulario
+                event.target.closest('form').submit();
+            }
+        });
+    }
+</script>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
         <img class="navbar-brand" src="../Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <span class="navbar-text">
@@ -29,7 +54,7 @@ session_start(); // Iniciamos la sesión
                     <a class="nav-link" href="../index.php">Inicio</a>
                 </li>
                 <?php
-                if (isset($_SESSION["loggedin"]) == true) {
+                if (isset($_SESSION["loggedin"]) == true) { // Si el usuario ha iniciado sesión, ocultar los botones de inicio de sesión y registro
                     echo '<li class="nav-item">
                     <a class="nav-link" href="../perfil-usuario/perfil-usuario.php">Mi Perfil (' . $_SESSION["usuario"] . ')</a>
                   </li>
@@ -71,15 +96,16 @@ session_start(); // Iniciamos la sesión
                 <thead>
                     <tr>
                         <th>Numero reserva</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
                         <th>DNI asociado</th>
                         <th>Fecha de Entrada</th>
                         <th>Fecha de Salida</th>
                         <th>Precio Total</th>
                         <th>Estado</th>
                         <th>Habitacion reservada</th>
+                        <th>Extra</th>
                         <th>Cancelar reserva</th>
-
-                        <!-- Agrega aquí más columnas si lo necesitas -->
                     </tr>
                 </thead>
                 <tbody>
@@ -93,14 +119,16 @@ session_start(); // Iniciamos la sesión
 
                         echo "<tr>";
                         echo "<td>" . $row['id_reserva'] . "</td>";
+                        echo "<td>" . $_SESSION['nombre'] . "</td>";
+                        echo "<td>" . $_SESSION['apellidos'] . "</td>";
                         echo "<td>" . $row['DNI_cliente'] . "</td>";
-
                         echo "<td>" . $row['fecha_entrada'] . "</td>";
                         echo "<td>" . $row['fecha_Salida'] . "</td>";
                         echo "<td>" . $row['precioTotal'] . "€</td>";
                         echo "<td>" . $row['estado'] . "</td>";
                         echo "<td>" . $row_habitacion['tipo'] . "</td>";
-                        echo "<td><a class='btn btn-danger' href='cancelar-reserva.php?id_reserva=" . $row['id_reserva'] . "'>Cancelar</a></td>";
+                        echo "<td><a href='informacion-reserva.php?id_reserva=" . $row['id_reserva'] . "&id_habitacion=" . $row['id_habitacion'] . "'>Más Información</a></td>";
+                        echo "<td><form action='cancelar-reserva.php?id_reserva=" . $row['id_reserva'] . "' method='POST'><button class='btn btn-danger' type='submit' onclick='return confirmacionCancelacion(event)'>Cancelar</button></form></td>";
 
                         // Agrega aquí más columnas si lo necesitas
                         echo "</tr>";
@@ -119,7 +147,7 @@ session_start(); // Iniciamos la sesión
     ?>
 
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
     <!-- Footer -->
     <footer class="bg-dark text-white py-4">

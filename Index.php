@@ -21,6 +21,9 @@ session_start(); // Iniciamos la sesión
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <img class="navbar-brand" src="Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <span class="navbar-text">
@@ -132,11 +135,11 @@ session_start(); // Iniciamos la sesión
 
   <br>
   <hr>
+
   <div class="text-center">
     <h2>Últimas publicaciones de nuestros hoteles</h2>
   </div>
-
-  <div class="justify-content-center">
+  <div class="d-flex justify-content-center">
     <?php
     // Realiza la conexión a la base de datos
     $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
@@ -208,6 +211,7 @@ session_start(); // Iniciamos la sesión
     mysqli_close($link);
     ?>
   </div>
+
 
 
 

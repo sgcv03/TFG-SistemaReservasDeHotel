@@ -1,5 +1,5 @@
-<?php 
- session_start();
+<?php
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,48 +7,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Inicio de sesión|CostaMS</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  
+  <title>Inicio de sesión | CostaMS</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="login.css">
   <link rel="icon" type="image/x-icon" href="../Imagenes/LogoHotel.png">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 </head>
 
 <style>
-  
+
 </style>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <img class="navbar-brand" src="../Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-     <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto">
         <span class="navbar-text">
           <img src="../Imagenes/banderaSpain.png" alt="Bandera España" width="30" height="30" class="rounded-circle">
         </span>
         <li class="nav-item">
           <a class="nav-link" href="../index.php">Inicio</a>
         </li>
-        
+
     </div>
   </nav>
 
 
-<br><br>
+  <br><br>
   <!--Formulario-->
   <div class="login-container">
     <div class="login-form">
-    <?php
+      <?php
       if (isset($_SESSION['error'])) {
         echo "<p style='color:red;'>" . $_SESSION['error'] . "</p>";
         unset($_SESSION['error']);
       }
-    ?>
+      ?>
       <form action="login-form.php" method="post">
         <h2 class="text-center">Log in</h2>
         <div class="form-group">
@@ -68,9 +66,9 @@
       <p class="text-center"><a href="../registrar/registrar.php">Crea una cuenta</a></p>
     </div>
   </div>
-  
-  
-  
+
+
+
 
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   <!-- Footer -->
