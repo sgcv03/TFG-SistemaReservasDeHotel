@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $apellidos = $_POST['nuevoApellidos'];
 
         if (!empty($apellidos)) {
-            // Consulta para actualizar el campo 'nombre' en la base de datos
+            // Consulta para actualizar el campo 'apellidos' en la base de datos
             $query = "UPDATE clientes SET apellidos = '$apellidos' where usuario = '$userID'";
 
             // Ejecutar la consulta
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: perfil-usuario.php');
                 exit();
             }
-            // Consulta para actualizar el campo 'nombre' en la base de datos
+            // Consulta para actualizar el campo 'usuario' en la base de datos
             $query = "UPDATE clientes SET usuario = '$usuario' where usuario = '$userID'";
 
             // Ejecutar la consulta
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: perfil-usuario.php');
                 exit();
             }
-            // Consulta para actualizar el campo 'nombre' en la base de datos
+            // Consulta para actualizar el campo 'DNI' en la base de datos
             $query = "UPDATE clientes SET dni_cliente = '$dni' where dni_cliente = '$dni'";
 
             // Ejecutar la consulta
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: perfil-usuario.php');
                 exit();
             }
-            // Consulta para actualizar el campo 'nombre' en la base de datos
+            // Consulta para actualizar el campo 'contraseña' en la base de datos
             $query = "UPDATE clientes SET contraseña = '$contraseña' where usuario = '$userID'";
 
             // Ejecutar la consulta
@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: perfil-usuario.php');
                 exit();
             }
-            // Consulta para actualizar el campo 'nombre' en la base de datos
+            // Consulta para actualizar el campo 'email' en la base de datos
             $query = "UPDATE clientes SET email = '$email' where usuario = '$userID'";
 
             // Ejecutar la consulta
@@ -159,13 +159,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = "SELECT * FROM clientes WHERE telefono='$telefono'";
             $result = mysqli_query($link, $sql);
             //Validar numero de telefono
-            if (!preg_match('/^\d{9}$/', $telefono)) {
+            if (!preg_match('/^\d{15}$/', $telefono)) {
                 $_SESSION['error'] = "El número de teléfono no tiene un formato válido";
                 header('Location: perfil-usuario.php');
                 exit();
             }
 
-            //Comprobar si ya está registrado un número de teléfono
+            //Comprobar si ya está registrado el número de teléfono
             $sql = "SELECT * FROM clientes WHERE telefono='$telefono'";
             $result = mysqli_query($link, $sql);
             if (mysqli_num_rows($result) > 0) {
@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: perfil-usuario.php');
                 exit();
             }
-            // Consulta para actualizar el campo 'nombre' en la base de datos
+            // Consulta para actualizar el campo 'telefono' en la base de datos
             $query = "UPDATE clientes SET telefono = '$telefono' where usuario = '$userID'";
 
             // Ejecutar la consulta
@@ -190,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $direccion = $_POST['nuevaDireccion'];
 
         if (!empty($direccion)) {
-            // Consulta para actualizar el campo 'nombre' en la base de datos
+            // Consulta para actualizar el campo 'direccion' en la base de datos
             $query = "UPDATE clientes SET direccion = '$direccion' WHERE usuario = '$userID'";
 
             // Ejecutar la consulta

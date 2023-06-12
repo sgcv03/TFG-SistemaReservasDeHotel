@@ -73,7 +73,6 @@ session_start(); // Iniciamos la sesión
                 </div>
             </div>
             <?php
-            // Obtén los datos de la reserva desde la base de datos
             $conexion = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
 
             // Verifica la conexión a la base de datos
@@ -86,9 +85,8 @@ session_start(); // Iniciamos la sesión
             $query = "SELECT id_reserva, fecha_entrada, fecha_salida, precioTotal FROM reservas WHERE id_reserva = '$reservaId'";
             $resultado = mysqli_query($conexion, $query);
 
-            // Verifica si se obtuvieron resultados
             if (mysqli_num_rows($resultado) > 0) {
-                // Obtiene los datos de la reserva
+                // Se obtiene los datos de la reserva
                 $fila = mysqli_fetch_assoc($resultado);
                 $reservaId = $fila['id_reserva'];
                 $reservaFechaEntrada = $fila['fecha_entrada'];
@@ -112,34 +110,30 @@ session_start(); // Iniciamos la sesión
                 </div>
             </div>
             <?php
-            // Obtén los datos de la reserva desde la base de datos
             $conexion = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
 
-            // Verifica la conexión a la base de datos
             if (!$conexion) {
                 die("Error de conexión a la base de datos: " . mysqli_connect_error());
             }
 
-            // Obtén el id_habitacion
+            //Se obtiene el id_habitacion mediante la URL
             $id_habitacion = $_GET['id_habitacion'];
 
             // Consulta para obtener los datos de la habitación
             $query_habitacion = "SELECT * FROM habitaciones WHERE id_habitacion = $id_habitacion";
 
-            // Ejecuta la consulta de la habitación
             $resultado_habitacion = mysqli_query($conexion, $query_habitacion);
 
-            // Verifica si se obtuvieron resultados de la habitación
+            //Se verifica si se obtuvieron resultados de la habitación
             if ($resultado_habitacion && mysqli_num_rows($resultado_habitacion) > 0) {
                 $fila_habitacion = mysqli_fetch_assoc($resultado_habitacion);
                 $habitacionTipo = $fila_habitacion['tipo'];
                 $habitacionDescripcion = $fila_habitacion['descripcion'];
                 $habitacionImagen = $fila_habitacion['imagen'];
 
-                // Consulta para obtener los datos del hotel
+                // Consulta para obtener los datos del hotel reservado
                 $query_hotel = "SELECT * FROM hoteles WHERE id_hotel = " . $fila_habitacion['id_hotel'];
 
-                // Ejecuta la consulta del hotel
                 $resultado_hotel = mysqli_query($conexion, $query_hotel);
 
                 // Verifica si se obtuvieron resultados del hotel
@@ -172,8 +166,7 @@ session_start(); // Iniciamos la sesión
                 }
             }
 
-            // Liberar los resultados de la consulta de la habitación y cerrar la conexión
-            mysqli_free_result($resultado_habitacion);
+            // Cerrar la conexión
             mysqli_close($conexion);
             ?>
 

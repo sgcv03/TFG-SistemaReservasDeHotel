@@ -18,6 +18,7 @@ session_start();
 
 </style>
 
+<!--Barra de navegacion-->
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <img class="navbar-brand" src="../Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
@@ -36,8 +37,8 @@ session_start();
     </div>
   </nav>
 
-
   <br><br>
+
   <!--Formulario-->
   <div class="login-container">
     <div class="login-form">
@@ -67,10 +68,8 @@ session_start();
     </div>
   </div>
 
-
-
-
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  
   <!-- Footer -->
   <footer class="bg-dark text-white py-4">
     <div class="container">

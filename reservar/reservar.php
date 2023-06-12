@@ -32,7 +32,7 @@ session_start();
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Si se confirma la baja, se envía el formulario
+                // Si se confirma la reserva, se envía el formulario
                 event.target.closest('form').submit();
             }
         });
@@ -110,7 +110,7 @@ session_start();
 
                         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['id_hotel'])) {
                             $id_hotel = $_SESSION['id_hotel'];
-                            // Realizar la consulta a la base de datos para obtener los hoteles filtrados
+                            // Consulta a la base de datos para obtener los hoteles filtrados
                             $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
                             $query = "SELECT * FROM hoteles WHERE id_hotel = '$id_hotel'";
                             $result = mysqli_query($link, $query);

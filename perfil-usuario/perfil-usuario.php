@@ -30,14 +30,14 @@ session_start();
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Si se confirma la baja, se envía el formulario
+        // Si se confirma la modificación, se envía el formulario
         event.target.closest('form').submit();
       }
     });
   }
 
   function confirmacionBaja(event) {
-    event.preventDefault(); // Detiene el envío del formulario
+    event.preventDefault(); 
 
     Swal.fire({
       title: 'Confirmación',
@@ -55,6 +55,7 @@ session_start();
   }
 </script>
 
+<!--Barra de navegación-->
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <img class="navbar-brand" src="../Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
@@ -70,7 +71,7 @@ session_start();
           <a class="nav-link" href="../index.php">Inicio</a>
         </li>
         <?php
-        if (isset($_SESSION["loggedin"]) == true) { // Si el usuario ha iniciado sesión, ocultar los botones de inicio de sesión y registro
+        if (isset($_SESSION["loggedin"]) == true) { // Si el usuario ha iniciado sesión, mostrar el apartado "Mis Reservas" y "Cerrar sesión"
           echo '  <li class="nav-item">
                     <a class="nav-link" href="../reservar/reservas-usuario.php">Mis Reservas</a>
                   </li>

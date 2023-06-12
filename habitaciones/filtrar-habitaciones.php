@@ -22,21 +22,22 @@ session_start();
 <script>
     // Esperar a que la página se cargue
     window.addEventListener('DOMContentLoaded', function() {
-        // Obtener los campos de fechas
+        // Obtener los campos de las fechas
         var fechaEntradaInput = document.getElementById('fechaEntrada');
         var fechaSalidaInput = document.getElementById('fechaSalida');
 
-        // Obtener los valores de las fechas ingresadas
+        // Obtener los valores de las fechas introducidas
         var fechaEntrada = '<?php echo isset($_GET["fechaEntrada"]) ? $_GET["fechaEntrada"] : "" ?>';
         var fechaSalida = '<?php echo isset($_GET["fechaSalida"]) ? $_GET["fechaSalida"] : "" ?>';
 
-        // Asignar los valores a los campos de fechas
+        // Asignar los valores a los campos de las fechas
         fechaEntradaInput.value = fechaEntrada;
         fechaSalidaInput.value = fechaSalida;
     });
 </script>
 
 <body>
+    <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <img class="navbar-brand" src="../Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +75,7 @@ session_start();
         </div>
     </nav>
 
-
+    <!--Codigo para mostrar la información del hotel que se desean ver las habitaciones-->
     <table class="table table-striped">
         <tbody>
             <?php
@@ -148,7 +149,7 @@ session_start();
                 $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
                 $query = "SELECT * FROM habitaciones WHERE id_hotel = '$id_hotel'";
 
-                // Si se proporcionan las fechas de entrada y salida, se filtran las habitaciones disponibles para esas fechas
+                // Se filtran las habitaciones disponibles para las fechas introducidas
                 if (!empty($fechaEntrada) && !empty($fechaSalida) && $fechaEntrada <= $fechaSalida) {
                     $query .= " AND id_habitacion NOT IN (
             SELECT id_habitacion FROM reservas

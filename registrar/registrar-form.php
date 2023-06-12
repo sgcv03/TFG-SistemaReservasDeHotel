@@ -4,7 +4,7 @@ session_start();
 
 $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
  
-// comprobar conexion
+// Comprobar conexion
 if($link === false){
     die("ERROR:  " . mysqli_connect_error());
 }
@@ -64,7 +64,7 @@ if (strlen($password) > 10) {
 }
 
 //Validar numero de telefono
-if (!preg_match('/^\d{9}$/', $telefono)){
+if (!preg_match('/^\d{15}$/', $telefono)){
     $_SESSION['error'] = "El número de teléfono no tiene un formato válido";
     header('Location: registrar.php');
     exit();
@@ -79,7 +79,7 @@ if (mysqli_num_rows($result) > 0) {
     exit();
 }
 
-//Si pasa todas las anteriores validaciones, creamos la cadena SQL y la ejecutamos
+//Si pasa todas las anteriores validaciones, se crea la sentencia SQL y se inserta al usuario en la base de datos.
 $sql = "INSERT INTO clientes (dni_cliente, nombre, apellidos, usuario, contraseña, email, telefono, direccion) VALUES 
 ('$dni', '$nombre', '$apellidos','$usuario','$password','$email', '$telefono' , '$direccion')";
 

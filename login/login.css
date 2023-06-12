@@ -44,9 +44,6 @@
     border-radius: 5px;
   }
   
-  /* Estilos adicionales para la barra de navegación y el pie de página */
-  
-
 /* Estilos para pantallas pequeñas */
 @media (max-width: 576px) {
 .navbar-brand {

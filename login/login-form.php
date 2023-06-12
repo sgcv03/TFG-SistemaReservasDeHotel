@@ -12,7 +12,7 @@ if($link === false){
 $usuario = $_POST['usuario'];
 $password = $_POST['password'];
 
-// Consulta SQL para buscar al usuario en la base de datos
+// Consulta para buscar al usuario en la base de datos
 $sql = "SELECT * FROM clientes WHERE usuario = '$usuario' and contraseña = '$password'";
 
 $resultado = mysqli_query($link, $sql);

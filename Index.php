@@ -68,7 +68,7 @@ session_start(); // Iniciamos la sesión
       <p>
         Introduce los siguientes criterios de búsqueda para encontrar tu hotel ideal.
       </p>
-      <!-- Agregar formulario para búsqueda de hoteles -->
+      <!-- Formulario para búsqueda de hoteles -->
       <form method="get" action="/resultado-hoteles/resultados-hoteles.php">
         <div class="form-group">
           <label for="pais">País:</label>
@@ -182,14 +182,14 @@ session_start(); // Iniciamos la sesión
         }
         ?>
 
-        <!-- Agrega las imágenes de las habitaciones -->
+        <!-- Agrega las imágenes de las habitaciones al slider -->
         <?php
         // Consulta para obtener las imágenes de las habitaciones
         $query = "SELECT imagen FROM habitaciones";
         $result = mysqli_query($link, $query);
 
         while ($row = mysqli_fetch_assoc($result)) {
-          // Crea un elemento de carousel-item para cada imagen de habitación
+          // Se crea un elemento de carousel-item para cada imagen de las habitaciones
           echo "<div class='carousel-item'>";
           echo "<img class='d-block w-100' src='data:image/jpeg;base64, " . base64_encode($row['imagen']) . "' alt='Habitación'>";
           echo "</div>";

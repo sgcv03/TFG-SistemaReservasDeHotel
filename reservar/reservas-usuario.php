@@ -32,7 +32,7 @@ session_start(); // Iniciamos la sesión
             cancelButtonText: 'Salir'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Si se confirma la baja, se envía el formulario
+                // Si se confirma la cancelación, se envía el formulario
                 event.target.closest('form').submit();
             }
         });
@@ -40,7 +40,7 @@ session_start(); // Iniciamos la sesión
 </script>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <img class="navbar-brand" src="../Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -111,6 +111,17 @@ session_start(); // Iniciamos la sesión
                 <tbody>
                     <?php
                     while ($row = mysqli_fetch_assoc($result)) {
+                        // Obtener la fecha actual
+                        $fechaActual = date("Y-m-d");
+
+                        // Comprobar si la reserva ya ha finalizado
+                        if ($row['fecha_Salida'] < $fechaActual && $row['estado'] != "Finalizado") {
+                            // Actualizar el estado de la reserva a "Finalizado"
+                            $idReserva = $row['id_reserva'];
+                            $queryActualizar = "UPDATE reservas SET estado = 'Finalizado' WHERE id_reserva = '$idReserva'";
+                            mysqli_query($link, $queryActualizar);
+                        }
+
                         // Obtener la información de la habitacion asociada a la reserva
                         $id_habitacion = $row['id_habitacion'];
                         $query_habitacion = "SELECT * FROM habitaciones WHERE id_habitacion = '$id_habitacion'";
@@ -128,9 +139,11 @@ session_start(); // Iniciamos la sesión
                         echo "<td>" . $row['estado'] . "</td>";
                         echo "<td>" . $row_habitacion['tipo'] . "</td>";
                         echo "<td><a href='informacion-reserva.php?id_reserva=" . $row['id_reserva'] . "&id_habitacion=" . $row['id_habitacion'] . "'>Más Información</a></td>";
-                        echo "<td><form action='cancelar-reserva.php?id_reserva=" . $row['id_reserva'] . "' method='POST'><button class='btn btn-danger' type='submit' onclick='return confirmacionCancelacion(event)'>Cancelar</button></form></td>";
+                        // Verificar si el estado de la reserva es diferente a "Finalizado"
+                        if ($row['estado'] != "Finalizado") {
+                            echo "<td><form action='cancelar-reserva.php?id_reserva=" . $row['id_reserva'] . "' method='POST'><button class='btn btn-danger' type='submit' onclick='return confirmacionCancelacion(event)'>Cancelar</button></form></td>";
+                        }
 
-                        // Agrega aquí más columnas si lo necesitas
                         echo "</tr>";
                     }
                     ?>
@@ -142,7 +155,7 @@ session_start(); // Iniciamos la sesión
         echo "<div class='container'>Todavía no has realizado ninguna reserva</div>";
     }
 
-    // Cerrar la conexión a la base de datos
+    // Cerrar la conexión con la base de datos
     mysqli_close($link);
     ?>
 

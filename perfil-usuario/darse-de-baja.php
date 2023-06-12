@@ -19,7 +19,7 @@ function eliminarDatosUsuario() {
             die("ERROR:  " . mysqli_connect_error());
         }
        
-        // Obtener el ID de usuario de la sesión
+        // Obtener el ID de usuario que está logeado
         $userID = $_SESSION["usuario"];
     
         // Eliminar el usuario de la base de datos
