@@ -64,8 +64,8 @@ if (strlen($password) > 10) {
 }
 
 //Validar numero de telefono
-if (!preg_match('/^\d{15}$/', $telefono)){
-    $_SESSION['error'] = "El número de teléfono no tiene un formato válido";
+if (strlen($telefono) > 15) {
+    $_SESSION['error'] = "El telefono supera la longitud establecida.";
     header('Location: registrar.php');
     exit();
 }

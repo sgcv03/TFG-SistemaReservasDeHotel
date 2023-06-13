@@ -159,9 +159,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = "SELECT * FROM clientes WHERE telefono='$telefono'";
             $result = mysqli_query($link, $sql);
             //Validar numero de telefono
-            if (!preg_match('/^\d{15}$/', $telefono)) {
-                $_SESSION['error'] = "El número de teléfono no tiene un formato válido";
-                header('Location: perfil-usuario.php');
+            if (strlen($telefono) > 15) {
+                $_SESSION['error'] = "El telefono supera la longitud establecida.";
+                header('Location: registrar.php');
                 exit();
             }
 

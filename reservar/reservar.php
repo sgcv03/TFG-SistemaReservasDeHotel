@@ -39,7 +39,7 @@ session_start();
     }
 </script>
 
-<body>
+<>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <img class="navbar-brand" src="../Imagenes/LogoHotelSinFondo.png" alt="Logo"></img>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -191,9 +191,8 @@ session_start();
             <div class="row">
                 <div class="col-md-4">
                     <h4>Contáctanos</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Dirección: Calle Falsa, 123</p>
                     <p><i class="fas fa-phone"></i> Teléfono: +34 123 456 789</p>
-                    <p><i class="fas fa-envelope"></i> Email: info@midominio.com</p>
+                    <p><i class="fas fa-envelope"></i> Email: tfg.costams@gmail.com</p>
                 </div>
                 <div class="col-md-4">
                     <h4>Redes Sociales</h4>
@@ -201,7 +200,7 @@ session_start();
                         <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
                         <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
                         <ion-icon name="logo-instagram"></ion-icon>
-                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="https://www.instagram.com/costamsreservadehoteles/"><i class="fab fa-instagram"></i> Instagram</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
@@ -221,6 +220,7 @@ session_start();
             <p class="text-center">&copy; 2023 CostaMS.com - Todos los derechos reservados</p>
         </div>
     </footer>
+
 </body>
 
 </html>
