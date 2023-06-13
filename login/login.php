@@ -48,6 +48,10 @@ session_start();
         echo "<p style='color:red;'>" . $_SESSION['error'] . "</p>";
         unset($_SESSION['error']);
       }
+      if (isset($_SESSION['exito'])) {
+        echo "<p style='color:green;'>" . $_SESSION['exito'] . "</p>";
+        unset($_SESSION['exito']);
+      }
       ?>
       <form action="login-form.php" method="post">
         <h2 class="text-center">Log in</h2>
@@ -62,7 +66,7 @@ session_start();
         </div>
         <div class="clearfix">
           <label class="float-left form-check-label"><input type="checkbox"> Recuerdame</label>
-          <a href="#" class="float-right">¿Has olvidado la contraseña?</a>
+          <a href="cambiar-password-form.php" class="float-right">¿Has olvidado la contraseña?</a>
         </div>
       </form>
       <p class="text-center"><a href="../registrar/registrar.php">Crea una cuenta</a></p>
