@@ -90,7 +90,7 @@ session_start();
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td style='width: 400px; text-align: center; vertical-align: middle;'><img src='data:image/jpeg;base64," . base64_encode($row['imagen']) . "' class='img-thumbnail' style='width: 150px; height: 150px;' alt='Imagen del hotel'></td>";
+                        echo "<td style='width: 400px; text-align: center; vertical-align: middle;'><img src='data:image/jpeg;base64," . base64_encode($row['imagen']) . "' class='img-thumbnail' style='width: 300px; height: 300px;' alt='Imagen del hotel'></td>";
                         echo "<td>";
                         echo "<h3><i>" . $row['nombre'] . "</i></h3>";
                         echo "<p><strong>Dirección:</strong> " . $row['direccion'] . "</p>";
@@ -129,6 +129,17 @@ session_start();
             </div>
             <button type="submit" class="btn btn-primary">Filtrar</button>
         </form>
+        <script>
+            document.querySelector('form').addEventListener('submit', function(e) {
+                var fechaEntrada = document.getElementById('fechaEntrada').value;
+                var fechaSalida = document.getElementById('fechaSalida').value;
+
+                if (fechaEntrada === fechaSalida) {
+                    e.preventDefault(); // Evitar que se envíe el formulario
+                    alert('La fecha de entrada no puede ser igual a la fecha de salida');
+                }
+            });
+        </script>
         <br>
         <div id="habitaciones">
             <?php
