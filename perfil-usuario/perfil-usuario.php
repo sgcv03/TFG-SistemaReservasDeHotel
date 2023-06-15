@@ -15,6 +15,7 @@ session_start();
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../index.css">
   <link rel="icon" type="image/x-icon" href="../Imagenes/LogoHotel.png">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <script>
@@ -84,7 +85,6 @@ session_start();
       </ul>
     </div>
   </nav>
-
 
   <div class="container">
     <h1>Mis datos</h1>

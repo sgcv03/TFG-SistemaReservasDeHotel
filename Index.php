@@ -113,7 +113,7 @@ session_start(); // Iniciamos la sesión
             }
 
             // Obtener las categorías disponibles desde la tabla "hoteles"
-            $query = "SELECT DISTINCT categoria FROM hoteles";
+            $query = "SELECT DISTINCT categoria FROM hoteles ORDER BY categoria desc";
             $result = $link->query($query);
 
             // Generar las opciones del select con las categorías obtenidas
@@ -145,26 +145,12 @@ session_start(); // Iniciamos la sesión
     $link = mysqli_connect("localhost", "id20778320_root", "Mapirase03!", "id20778320_tfg_hoteles");
 
     // Consulta para obtener las imágenes de hoteles
-    $query = "SELECT imagen FROM hoteles";
+    $query = "SELECT imagen FROM hoteles LIMIT 5";
     $result = mysqli_query($link, $query);
     ?>
 
     <!-- Slider -->
     <div id="carouselExampleIndicators" class="carousel slide d-flex justify-content-center align-items-center" style="max-width: 600px;">
-      <ol class="carousel-indicators">
-        <?php
-        $i = 0;
-        while ($row = mysqli_fetch_assoc($result)) {
-          // Crea un indicador para cada imagen
-          echo "<li data-target='#carouselExampleIndicators' data-slide-to='" . $i . "' ";
-          if ($i == 0) {
-            echo "class='active'";
-          }
-          echo "></li>";
-          $i++;
-        }
-        ?>
-      </ol>
       <div class="carousel-inner">
         <?php
         $i = 0;
@@ -185,7 +171,7 @@ session_start(); // Iniciamos la sesión
         <!-- Agrega las imágenes de las habitaciones al slider -->
         <?php
         // Consulta para obtener las imágenes de las habitaciones
-        $query = "SELECT imagen FROM habitaciones";
+        $query = "SELECT imagen FROM habitaciones LIMIT 5";
         $result = mysqli_query($link, $query);
 
         while ($row = mysqli_fetch_assoc($result)) {
